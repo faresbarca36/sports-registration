@@ -347,6 +347,8 @@
         .btn-download-csv { background: #16a34a; }
         .btn-download-json { background: #f59e0b; }
         .btn-copy-sport { background: #64748b; }
+        .btn-save-data { background: #8b5cf6; }
+        .btn-delete-athlete { background: #ef4444; }
 
         .sport-table-wrapper {
             margin-bottom: 20px;
@@ -415,6 +417,19 @@
             color: #6d28d9;
             font-size: 12px;
         }
+        .sport-table .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sport-table .delete-btn:hover {
+            background: #dc2626;
+        }
         
         .category-badge {
             display: inline-block;
@@ -477,7 +492,6 @@
         .password-box h2 { color: #1e293b; margin-bottom: 4px; font-size: 20px; }
         .password-box .sub-text { color: #64748b; font-size: 13px; margin-bottom: 15px; }
         
-        /* ===== خانات الكود ===== */
         .code-inputs {
             display: flex;
             justify-content: center;
@@ -518,7 +532,6 @@
             animation: shake 0.4s ease;
         }
         
-        /* ===== زر إظهار/إخفاء واحد ===== */
         .code-toggle-wrapper {
             display: flex;
             justify-content: center;
@@ -748,7 +761,7 @@
         <label><span class="label-icon">📞</span> رقم الهاتف <span class="required">*</span></label>
         <input type="tel" id="phone" placeholder="05xxxxxxxx" required pattern="[0-9]{10}">
 
-        <label><span class="label-icon">✉️</span> البريد الإلكتروني</label>
+        <label><span class="label-icon">✉️</span> البريد الإلكتروني <span style="font-size:11px; color:#94a3b8; font-weight:normal;">(اختياري)</span></label>
         <input type="email" id="email" placeholder="example@email.com">
 
         <label><span class="label-icon">🤼</span> نوع المصارعة</label>
@@ -823,6 +836,7 @@
     function saveAthletes(athletes) {
         try {
             localStorage.setItem('athletes', JSON.stringify(athletes));
+            updateCounter();
             return true;
         } catch(e) {
             return false;
@@ -832,9 +846,13 @@
     function addAthlete(athlete) {
         const athletes = getAthletes();
         athletes.push(athlete);
-        const success = saveAthletes(athletes);
-        if (success) updateCounter();
-        return success;
+        return saveAthletes(athletes);
+    }
+    
+    function deleteAthleteById(id) {
+        let athletes = getAthletes();
+        athletes = athletes.filter(a => a.id !== id);
+        return saveAthletes(athletes);
     }
     
     function updateCounter() {
@@ -1034,7 +1052,6 @@
         `;
         document.body.appendChild(overlay);
         
-        // إعداد خانات الكود
         const inputs = document.querySelectorAll('.code-box');
         inputs.forEach((input, index) => {
             input.addEventListener('input', function(e) {
@@ -1358,7 +1375,7 @@
     }
     
     // ============================================================
-    // 5. تصدير البيانات
+    // 5. تصدير البيانات مع حفظ وحذف
     // ============================================================
     
     function exportData() {
@@ -1420,6 +1437,7 @@
                                     <th>🏷️ الفئة (UWW)</th>
                                     <th>📅 العمر</th>
                                     <th>📅 تاريخ التسجيل</th>
+                                    <th>🗑️</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1430,6 +1448,7 @@
                 const date = a.registrationDate ? new Date(a.registrationDate).toLocaleDateString('ar-EG') : '-';
                 const categoryDisplay = a.category || 'Seniors';
                 const categoryCSS = a.categoryCSS || 'category-seniors';
+                const athleteId = a.id || Date.now() + index;
                 
                 tablesHTML += `
                     <tr>
@@ -1439,6 +1458,7 @@
                         <td><span class="category-badge ${categoryCSS}">${categoryDisplay}</span></td>
                         <td>${a.age || '-'}</td>
                         <td style="font-size:11px; color:#64748b;">${date}</td>
+                        <td><button class="delete-btn" onclick="deleteAthleteFromList(${athleteId})">🗑️ حذف</button></td>
                     </tr>
                 `;
             });
@@ -1467,12 +1487,13 @@
                             <button class="btn-copy-json" onclick="copyAllJSON()">📋 نسخ JSON</button>
                             <button class="btn-download-csv" onclick="downloadAllCSV()">⬇️ تحميل CSV</button>
                             <button class="btn-download-json" onclick="downloadAllJSON()">⬇️ تحميل JSON</button>
+                            <button class="btn-save-data" onclick="saveDataToFile()">💾 حفظ البيانات</button>
                         </div>
                         
                         ${tablesHTML}
                         
                         <div class="modal-footer-note">
-                            🤼 كل اختصاص في جدول منفصل - انسخ الجدول الذي تريده
+                            🤼 كل اختصاص في جدول منفصل - يمكنك حذف أي لاعب أو حفظ البيانات
                         </div>
                     </div>
                 </div>
@@ -1485,6 +1506,39 @@
         
         window._athletesData = athletes;
         window._groupsData = groups;
+    }
+    
+    function deleteAthleteFromList(id) {
+        if (confirm('⚠️ هل أنت متأكد من حذف هذا المصارع؟')) {
+            const success = deleteAthleteById(id);
+            if (success) {
+                alert('✅ تم حذف المصارع بنجاح!');
+                // إعادة تحميل نافذة التصدير
+                closeExportModal();
+                exportData();
+            } else {
+                alert('❌ فشل حذف المصارع!');
+            }
+        }
+    }
+    
+    function saveDataToFile() {
+        const athletes = getAthletes();
+        if (athletes.length === 0) {
+            alert('⚠️ لا توجد بيانات للحفظ!');
+            return;
+        }
+        
+        const dataStr = JSON.stringify(athletes, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `المصارعين_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        alert('✅ تم حفظ البيانات بنجاح!');
     }
     
     function closeExportModal() {
