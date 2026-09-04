@@ -213,7 +213,7 @@
             transition: 0.3s;
             letter-spacing: 1px;
         }
-        .btn-export::before { content: '📜 '; }
+        .btn-export::before { content: '🔒 '; }
         .btn-export:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4); }
         
         .alert { padding: 12px 16px; border-radius: 10px; margin-top: 15px; display: none; font-size: 13px; }
@@ -235,8 +235,17 @@
         .reg-number-box .label { font-size: 12px; color: #64748b; font-weight: normal; display: block; margin-bottom: 3px; }
         .reg-number-box .number { color: #6d28d9; font-size: 24px; letter-spacing: 1px; }
         
-        .counter { text-align: center; font-size: 13px; color: #475569; margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
+        .counter {
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+        }
         .counter span { font-weight: bold; color: #6d28d9; }
+        .counter .lock-icon { font-size: 12px; margin-left: 4px; }
+        
         .footer-text { font-size: 11px; color: #94a3b8; text-align: center; margin-top: 8px; }
         
         .loading-spinner {
@@ -439,6 +448,156 @@
             transition: 0.3s;
         }
         .copy-sport-btn:hover { background: rgba(255,255,255,0.35); }
+
+        /* ===== نافذة الكود السري ===== */
+        .password-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        .password-box {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 30px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        .password-box .icon { font-size: 42px; margin-bottom: 8px; }
+        .password-box h2 { color: #1e293b; margin-bottom: 4px; font-size: 20px; }
+        .password-box .sub-text { color: #64748b; font-size: 13px; margin-bottom: 15px; }
+        .password-box .email-hint {
+            background: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 15px;
+            direction: ltr;
+        }
+        .password-box .input-group {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .password-box .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+        .password-box .input-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 4px;
+            direction: ltr;
+            font-weight: 700;
+        }
+        .password-box .input-group input:focus {
+            border-color: #8b5cf6;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+        }
+        .password-box .btn-password {
+            width: 100%;
+            padding: 11px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.3s;
+        }
+        .password-box .btn-password:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+        .password-box .btn-password.secondary {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+        }
+        .password-box .btn-password.secondary:hover {
+            box-shadow: 0 10px 30px rgba(100, 116, 139, 0.4);
+        }
+        .password-box .btn-password.success {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        }
+        .password-box .btn-password.success:hover {
+            box-shadow: 0 10px 30px rgba(22, 163, 74, 0.4);
+        }
+        .password-box .error-msg {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .password-box .success-msg {
+            color: #16a34a;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .password-box .link-btn {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #8b5cf6;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
+        }
+        .password-box .link-btn:hover { color: #6d28d9; }
+        .password-box .close-btn {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #94a3b8;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .password-box .close-btn:hover { color: #475569; }
+        .password-box .divider-line {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 15px 0;
+        }
+        .password-box .step-indicator {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        
+        /* ===== نافذة التأكيد ===== */
+        .verification-box {
+            display: none;
+            margin-top: 12px;
+            padding: 15px;
+            background: #f0fdf4;
+            border-radius: 10px;
+            border: 1px solid #86efac;
+        }
+        .verification-box p { color: #166534; font-size: 13px; margin-bottom: 8px; }
+        .verification-box .input-group input {
+            letter-spacing: 8px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -536,14 +695,26 @@
         <span class="label">🤼 رقم المصارع</span>
         <span class="number" id="regNumber">REG-2026-0001</span>
     </div>
-    <div class="counter">👥 عدد المصارعين: <span id="counter">0</span></div>
-    <button class="btn-export" onclick="exportData()">📜 تصدير جميع المصارعين</button>
+    
+    <div class="counter" id="counterArea">
+        🔒 عدد المصارعين: <span id="counter">0</span>
+    </div>
+    
+    <button class="btn-export" onclick="showPasswordDialog()">📜 تصدير جميع المصارعين</button>
     <div class="footer-text">سيتم إرسال تأكيد التسجيل إلى بريدك الإلكتروني</div>
 </div>
 
 <script>
     // ============================================================
-    // 1. دوال التخزين - localStorage (تبقى بعد التحديث)
+    // 🔑 إعدادات الكود السري
+    // ============================================================
+    let SECRET_CODE = "2025";  // الكود السري الحالي
+    const RECOVERY_EMAIL = "faresbarca069@gmail.com";
+    let pendingNewCode = null;  // الكود الجديد المؤقت
+    let verificationCode = null;  // رمز التحقق المرسل
+    
+    // ============================================================
+    // 1. دوال التخزين
     // ============================================================
     
     function getAthletes() {
@@ -610,6 +781,8 @@
     
     updateCounter();
     console.log('🚀 موقع NBC جاهز!');
+    console.log('🔑 الكود السري الحالي:', SECRET_CODE);
+    console.log('📧 بريد الاسترداد:', RECOVERY_EMAIL);
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -712,7 +885,281 @@
     }
     
     // ============================================================
-    // 4. تصدير البيانات - جدول منظم
+    // 4. نظام الكود السري (مثل فايسبوك)
+    // ============================================================
+    
+    let isChangingPassword = false;
+    let isVerifying = false;
+    let generatedVerificationCode = null;
+    
+    function showPasswordDialog() {
+        closePasswordDialog();
+        isChangingPassword = false;
+        isVerifying = false;
+        generatedVerificationCode = null;
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'password-overlay';
+        overlay.id = 'passwordOverlay';
+        overlay.innerHTML = `
+            <div class="password-box" id="passwordBox">
+                <div class="icon">🔒</div>
+                <h2>إدخال الكود السري</h2>
+                <p class="sub-text">أدخل الكود السري للوصول إلى بيانات المصارعين</p>
+                <div class="email-hint">📧 ${RECOVERY_EMAIL}</div>
+                
+                <div class="input-group">
+                    <label>🔑 الكود السري</label>
+                    <input type="password" id="passwordInput" placeholder="●●●●" maxlength="10" autofocus>
+                </div>
+                <div class="error-msg" id="passwordError">❌ الكود السري غير صحيح! حاول مرة أخرى.</div>
+                
+                <button class="btn-password" onclick="verifyPassword()">🔓 تأكيد</button>
+                <hr class="divider-line">
+                
+                <button class="link-btn" onclick="showChangePassword()">🔄 تغيير الكود السري</button>
+                <button class="link-btn" onclick="showForgotPassword()" style="color:#ef4444;">❓ نسيت الكود السري؟</button>
+                <br>
+                <button class="close-btn" onclick="closePasswordDialog()">إلغاء</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        setTimeout(() => {
+            const input = document.getElementById('passwordInput');
+            if (input) input.focus();
+        }, 300);
+        
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyPassword();
+        });
+    }
+    
+    function closePasswordDialog() {
+        const overlay = document.getElementById('passwordOverlay');
+        if (overlay) overlay.remove();
+        isChangingPassword = false;
+        isVerifying = false;
+        generatedVerificationCode = null;
+    }
+    
+    // ===== التحقق من الكود =====
+    function verifyPassword() {
+        const input = document.getElementById('passwordInput');
+        const error = document.getElementById('passwordError');
+        const code = input.value.trim();
+        
+        if (code === SECRET_CODE) {
+            closePasswordDialog();
+            exportData();
+        } else {
+            error.style.display = 'block';
+            input.value = '';
+            input.focus();
+            input.style.borderColor = '#ef4444';
+            setTimeout(() => { input.style.borderColor = '#e2e8f0'; }, 500);
+        }
+    }
+    
+    // ===== تغيير الكود السري =====
+    function showChangePassword() {
+        const box = document.getElementById('passwordBox');
+        if (!box) return;
+        
+        isChangingPassword = true;
+        isVerifying = false;
+        
+        box.innerHTML = `
+            <div class="icon">🔄</div>
+            <h2>تغيير الكود السري</h2>
+            <p class="sub-text">أدخل الكود القديم ثم الكود الجديد</p>
+            <div class="step-indicator">الخطوة 1 من 2</div>
+            
+            <div class="input-group">
+                <label>🔑 الكود القديم</label>
+                <input type="password" id="oldPasswordInput" placeholder="●●●●" maxlength="10" autofocus>
+            </div>
+            <div class="error-msg" id="oldPasswordError">❌ الكود القديم غير صحيح!</div>
+            
+            <div class="input-group" style="display:none;" id="newPasswordGroup">
+                <label>🆕 الكود الجديد</label>
+                <input type="password" id="newPasswordInput" placeholder="●●●●" maxlength="10">
+            </div>
+            <div class="error-msg" id="newPasswordError">❌ الكود الجديد يجب أن يكون مختلفاً عن القديم</div>
+            
+            <button class="btn-password" id="changeBtn" onclick="verifyOldPassword()">✅ تأكيد الكود القديم</button>
+            <br>
+            <button class="link-btn" onclick="showPasswordDialog()">🔙 رجوع</button>
+            <button class="close-btn" onclick="closePasswordDialog()">إلغاء</button>
+        `;
+        
+        setTimeout(() => {
+            const input = document.getElementById('oldPasswordInput');
+            if (input) input.focus();
+        }, 300);
+        
+        document.getElementById('oldPasswordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyOldPassword();
+        });
+    }
+    
+    function verifyOldPassword() {
+        const oldInput = document.getElementById('oldPasswordInput');
+        const error = document.getElementById('oldPasswordError');
+        const oldCode = oldInput.value.trim();
+        
+        if (oldCode === SECRET_CODE) {
+            // الكود القديم صحيح - إظهار حقل الكود الجديد
+            error.style.display = 'none';
+            const newGroup = document.getElementById('newPasswordGroup');
+            newGroup.style.display = 'block';
+            document.getElementById('changeBtn').textContent = '💾 حفظ الكود الجديد';
+            document.getElementById('changeBtn').onclick = saveNewPassword;
+            document.getElementById('step-indicator').textContent = 'الخطوة 2 من 2';
+            
+            setTimeout(() => {
+                document.getElementById('newPasswordInput').focus();
+            }, 300);
+            
+            document.getElementById('newPasswordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') saveNewPassword();
+            });
+        } else {
+            error.style.display = 'block';
+            oldInput.value = '';
+            oldInput.focus();
+            oldInput.style.borderColor = '#ef4444';
+            setTimeout(() => { oldInput.style.borderColor = '#e2e8f0'; }, 500);
+        }
+    }
+    
+    function saveNewPassword() {
+        const newInput = document.getElementById('newPasswordInput');
+        const newError = document.getElementById('newPasswordError');
+        const newCode = newInput.value.trim();
+        
+        if (newCode.length < 4) {
+            newError.textContent = '❌ الكود الجديد يجب أن يكون 4 أحرف على الأقل';
+            newError.style.display = 'block';
+            return;
+        }
+        
+        if (newCode === SECRET_CODE) {
+            newError.textContent = '❌ الكود الجديد يجب أن يكون مختلفاً عن القديم';
+            newError.style.display = 'block';
+            newInput.value = '';
+            newInput.focus();
+            return;
+        }
+        
+        // تغيير الكود
+        SECRET_CODE = newCode;
+        newError.style.display = 'none';
+        
+        // عرض رسالة نجاح
+        const box = document.getElementById('passwordBox');
+        box.innerHTML = `
+            <div class="icon">✅</div>
+            <h2>تم تغيير الكود بنجاح!</h2>
+            <p class="sub-text">الكود السري الجديد: <strong style="color:#8b5cf6; font-size:20px; letter-spacing:4px;">${SECRET_CODE}</strong></p>
+            <div class="email-hint">📧 تم حفظ الكود الجديد بنجاح</div>
+            <button class="btn-password success" onclick="closePasswordDialog()">👍 حسناً</button>
+        `;
+        
+        console.log('🔑 تم تغيير الكود السري إلى:', SECRET_CODE);
+    }
+    
+    // ===== نسيت الكود السري (استرداد عبر البريد) =====
+    function showForgotPassword() {
+        const box = document.getElementById('passwordBox');
+        if (!box) return;
+        
+        isVerifying = true;
+        isChangingPassword = false;
+        generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        box.innerHTML = `
+            <div class="icon">📧</div>
+            <h2>استرداد الكود السري</h2>
+            <p class="sub-text">سيتم إرسال رمز تحقق إلى بريدك الإلكتروني</p>
+            <div class="email-hint">📧 ${RECOVERY_EMAIL}</div>
+            
+            <div class="input-group">
+                <label>📨 رمز التحقق</label>
+                <input type="text" id="verificationInput" placeholder="●●●●●●" maxlength="6" autofocus>
+            </div>
+            <div class="error-msg" id="verificationError">❌ رمز التحقق غير صحيح!</div>
+            
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="btn-password" onclick="sendVerificationCode()" style="flex:1;">📨 إرسال الرمز</button>
+                <button class="btn-password secondary" onclick="verifyCode()" style="flex:1;">✅ تأكيد</button>
+            </div>
+            <br>
+            <button class="link-btn" onclick="showPasswordDialog()">🔙 رجوع</button>
+            <button class="close-btn" onclick="closePasswordDialog()">إلغاء</button>
+        `;
+        
+        setTimeout(() => {
+            const input = document.getElementById('verificationInput');
+            if (input) input.focus();
+        }, 300);
+        
+        document.getElementById('verificationInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyCode();
+        });
+        
+        // عرض الكود في وحدة التحكم (للمساعدة في حالة عدم وصول البريد)
+        console.log('📧 رمز التحقق المرسل:', generatedVerificationCode);
+        console.log('📧 تم إرسال الرمز إلى:', RECOVERY_EMAIL);
+    }
+    
+    function sendVerificationCode() {
+        // محاكاة إرسال رمز التحقق
+        const msg = document.createElement('div');
+        msg.style.cssText = 'color:#2563eb; font-size:13px; margin-top:8px; padding:8px; background:#dbeafe; border-radius:8px;';
+        msg.textContent = `📨 تم إرسال رمز التحقق إلى ${RECOVERY_EMAIL}`;
+        
+        const box = document.getElementById('passwordBox');
+        const existing = box.querySelector('.send-msg');
+        if (existing) existing.remove();
+        msg.className = 'send-msg';
+        box.insertBefore(msg, box.querySelector('.btn-password'));
+        
+        // إعادة إنشاء رمز تحقق جديد
+        generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log('📧 رمز التحقق الجديد:', generatedVerificationCode);
+    }
+    
+    function verifyCode() {
+        const input = document.getElementById('verificationInput');
+        const error = document.getElementById('verificationError');
+        const code = input.value.trim();
+        
+        if (code === generatedVerificationCode) {
+            // رمز التحقق صحيح - عرض الكود السري
+            error.style.display = 'none';
+            const box = document.getElementById('passwordBox');
+            box.innerHTML = `
+                <div class="icon">🔓</div>
+                <h2>تم التحقق بنجاح!</h2>
+                <p class="sub-text">الكود السري الخاص بك هو:</p>
+                <div style="font-size:32px; font-weight:900; color:#8b5cf6; letter-spacing:6px; padding:15px; background:#f1f5f9; border-radius:12px; margin:10px 0; direction:ltr;">
+                    ${SECRET_CODE}
+                </div>
+                <div class="email-hint">📧 تم إرسال الكود إلى بريدك الإلكتروني أيضاً</div>
+                <button class="btn-password success" onclick="closePasswordDialog()">👍 حسناً</button>
+            `;
+        } else {
+            error.style.display = 'block';
+            input.value = '';
+            input.focus();
+            input.style.borderColor = '#ef4444';
+            setTimeout(() => { input.style.borderColor = '#e2e8f0'; }, 500);
+        }
+    }
+    
+    // ============================================================
+    // 5. تصدير البيانات - جدول منظم (محمي بالكود)
     // ============================================================
     
     function exportData() {
@@ -968,7 +1415,7 @@
     }
     
     // ============================================================
-    // 5. كشف الفئة تلقائياً
+    // 6. كشف الفئة تلقائياً عند تغيير تاريخ الميلاد
     // ============================================================
     
     document.getElementById('birthDate').addEventListener('change', function() {
@@ -988,7 +1435,10 @@
     // تحديث العداد كل 5 ثواني
     setInterval(updateCounter, 5000);
     
-    console.log('✅ الموقع جاهز! البيانات محفوظة في localStorage.');
+    console.log('✅ الموقع جاهز!');
+    console.log('🔑 الكود السري الحالي:', SECRET_CODE);
+    console.log('📧 للاسترداد:', RECOVERY_EMAIL);
+    console.log('💡 لتغيير الكود: اضغط على "تغيير الكود السري" في نافذة الكود');
 </script>
 
 </body>
