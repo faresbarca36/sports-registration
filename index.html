@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🤼 NBC - نجوم بلدية شيحاني</title>
     <style>
+        /* كل الأنماط السابقة تبقى كما هي */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Tahoma', 'Segoe UI', sans-serif;
@@ -17,7 +18,6 @@
             overflow-x: hidden;
             background: #0f172a;
         }
-        
         .wrestling-bg {
             position: fixed;
             top: 0; left: 0;
@@ -216,9 +216,27 @@
         .btn-export::before { content: '🔒 '; }
         .btn-export:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4); }
         
+        .btn-sync {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+        .btn-sync::before { content: '🔄 '; }
+        .btn-sync:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4); }
+        
         .alert { padding: 12px 16px; border-radius: 10px; margin-top: 15px; display: none; font-size: 13px; }
         .alert-success { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; border: 1px solid #86efac; display: block; }
         .alert-error { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; border: 1px solid #fca5a5; display: block; }
+        .alert-info { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1e40af; border: 1px solid #93c5fd; display: block; }
         
         .reg-number-box {
             background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
@@ -349,6 +367,7 @@
         .btn-copy-sport { background: #64748b; }
         .btn-save-data { background: #8b5cf6; }
         .btn-delete-athlete { background: #ef4444; }
+        .btn-sync-now { background: #16a34a; }
 
         .sport-table-wrapper {
             margin-bottom: 20px;
@@ -704,6 +723,15 @@
             border-radius: 8px;
             margin-bottom: 12px;
         }
+        .sync-status {
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .sync-status .success { color: #16a34a; }
+        .sync-status .error { color: #ef4444; }
+        .sync-status .loading { color: #8b5cf6; }
     </style>
 </head>
 <body>
@@ -806,6 +834,9 @@
         🔒 عدد المصارعين: <span id="counter">0</span>
     </div>
     
+    <button class="btn-sync" onclick="syncWithCloud()">🔄 مزامنة مع السحابة</button>
+    <div id="syncStatus" class="sync-status"></div>
+    
     <button class="btn-export" onclick="showPasswordDialog()">📜 تصدير جميع المصارعين</button>
     <div class="footer-text">سيتم إرسال تأكيد التسجيل إلى بريدك الإلكتروني</div>
 </div>
@@ -821,7 +852,12 @@
     let isCodeVisible = false;
     
     // ============================================================
-    // 1. دوال التخزين
+    // 🌐 رابط Google Apps Script (تم تحديثه)
+    // ============================================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbw39-wEbnMc-4hFZEnw2Olhpkp-rD8q7hQXXRxC12fWM3QnhNh6rde6vsjzokQhb0ia9w/exec';
+    
+    // ============================================================
+    // 1. دوال التخزين المحلية
     // ============================================================
     
     function getAthletes() {
@@ -833,7 +869,7 @@
         }
     }
     
-    function saveAthletes(athletes) {
+    function saveAthletesLocally(athletes) {
         try {
             localStorage.setItem('athletes', JSON.stringify(athletes));
             updateCounter();
@@ -846,13 +882,13 @@
     function addAthlete(athlete) {
         const athletes = getAthletes();
         athletes.push(athlete);
-        return saveAthletes(athletes);
+        return saveAthletesLocally(athletes);
     }
     
     function deleteAthleteById(id) {
         let athletes = getAthletes();
         athletes = athletes.filter(a => a.id !== id);
-        return saveAthletes(athletes);
+        return saveAthletesLocally(athletes);
     }
     
     function updateCounter() {
@@ -894,7 +930,7 @@
     updateCounter();
     console.log('🚀 موقع NBC جاهز!');
     console.log('🔑 الكود السري الحالي:', SECRET_CODE);
-    console.log('📧 للاسترداد:', RECOVERY_EMAIL);
+    console.log('🌐 API URL:', API_URL);
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -960,12 +996,16 @@
             registrationDate: new Date().toISOString()
         };
         
+        // حفظ محلياً
         const success = addAthlete(athleteData);
         
         if (success) {
             showSuccess(`✅ تم تسجيل المصارع بنجاح!<br>🤼 ${fullName} | 🏷️ ${category.name} (${category.arabic}) | ${sport}`);
             showRegNumber(regNumber);
             form.reset();
+            
+            // محاولة الحفظ في السحابة
+            syncToCloud(athleteData);
         } else {
             showError('❌ فشل حفظ البيانات!');
         }
@@ -997,7 +1037,91 @@
     }
     
     // ============================================================
-    // 4. نظام الكود السري
+    // 4. المزامنة مع السحابة
+    // ============================================================
+    
+    function syncToCloud(data) {
+        fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                console.log('✅ تم الحفظ في السحابة بنجاح');
+            } else {
+                console.error('❌ فشل الحفظ في السحابة:', result.error);
+            }
+        })
+        .catch(error => {
+            console.error('❌ خطأ في الاتصال بالسحابة:', error);
+        });
+    }
+    
+    function syncWithCloud() {
+        const statusDiv = document.getElementById('syncStatus');
+        statusDiv.innerHTML = '<span class="loading">⏳ جاري المزامنة مع السحابة...</span>';
+        
+        // جلب البيانات من السحابة
+        fetch(API_URL + '?action=get')
+        .then(response => response.json())
+        .then(result => {
+            if (result.success && result.data) {
+                const cloudData = result.data;
+                const localData = getAthletes();
+                
+                const existingRegNumbers = new Set(localData.map(a => a.regNumber));
+                let newCount = 0;
+                
+                cloudData.forEach(cloudItem => {
+                    if (!existingRegNumbers.has(cloudItem.رقم_المصارع)) {
+                        const newAthlete = {
+                            id: Date.now() + Math.random() * 1000 + newCount,
+                            fullName: cloudItem['الاسم الكامل'] || cloudItem['الاسم'] || '',
+                            birthDate: cloudItem['تاريخ الميلاد'] || '',
+                            age: parseInt(cloudItem['العمر']) || 0,
+                            phone: cloudItem['رقم الهاتف'] || '',
+                            email: cloudItem['البريد الإلكتروني'] || 'غير مدخل',
+                            sport: cloudItem['الرياضة'] || '',
+                            category: cloudItem['الفئة (UWW)'] || 'Seniors',
+                            categoryArabic: '',
+                            categoryCSS: 'category-seniors',
+                            consent: cloudItem['موافقة ولي الأمر'] === 'نعم',
+                            regNumber: cloudItem['رقم المصارع'] || `REG-${Date.now()}-${newCount}`,
+                            registrationDate: cloudItem['تاريخ التسجيل'] || new Date().toISOString()
+                        };
+                        
+                        const age = newAthlete.age;
+                        const cat = getUWWAgeCategory(age);
+                        newAthlete.category = cat.name;
+                        newAthlete.categoryArabic = cat.arabic;
+                        newAthlete.categoryCSS = cat.css;
+                        
+                        localData.push(newAthlete);
+                        newCount++;
+                    }
+                });
+                
+                if (newCount > 0) {
+                    saveAthletesLocally(localData);
+                    statusDiv.innerHTML = `<span class="success">✅ تمت المزامنة بنجاح! تم إضافة ${newCount} لاعب جديد من السحابة.</span>`;
+                } else {
+                    statusDiv.innerHTML = `<span class="success">✅ تمت المزامنة بنجاح! لا توجد بيانات جديدة.</span>`;
+                }
+                
+                updateCounter();
+            } else {
+                statusDiv.innerHTML = `<span class="error">❌ فشل جلب البيانات من السحابة: ${result.error || 'خطأ غير معروف'}</span>`;
+            }
+        })
+        .catch(error => {
+            statusDiv.innerHTML = `<span class="error">❌ خطأ في الاتصال بالسحابة: ${error.message}</span>`;
+        });
+    }
+    
+    // ============================================================
+    // 5. نظام الكود السري (مختصر)
     // ============================================================
     
     function toggleAllCodeVisibility() {
@@ -1138,7 +1262,7 @@
         if (overlay) overlay.remove();
     }
     
-    // ===== تغيير الكود السري =====
+    // ===== تغيير الكود السري (مختصر) =====
     function showChangePassword() {
         const box = document.getElementById('passwordBox');
         if (!box) return;
@@ -1247,7 +1371,7 @@
         console.log('🔑 تم تغيير الكود السري إلى:', SECRET_CODE);
     }
     
-    // ===== نسيت الكود السري =====
+    // ===== نسيت الكود السري (مختصر) =====
     function showForgotPassword() {
         const box = document.getElementById('passwordBox');
         if (!box) return;
@@ -1375,7 +1499,7 @@
     }
     
     // ============================================================
-    // 5. تصدير البيانات مع حفظ وحذف
+    // 6. تصدير البيانات
     // ============================================================
     
     function exportData() {
@@ -1513,7 +1637,6 @@
             const success = deleteAthleteById(id);
             if (success) {
                 alert('✅ تم حذف المصارع بنجاح!');
-                // إعادة تحميل نافذة التصدير
                 closeExportModal();
                 exportData();
             } else {
@@ -1668,7 +1791,7 @@
     }
     
     // ============================================================
-    // 6. كشف الفئة تلقائياً
+    // 7. كشف الفئة تلقائياً
     // ============================================================
     
     document.getElementById('birthDate').addEventListener('change', function() {
@@ -1689,6 +1812,7 @@
     
     console.log('✅ الموقع جاهز!');
     console.log('🔑 الكود السري الحالي:', SECRET_CODE);
+    console.log('🌐 رابط المزامنة:', API_URL);
 </script>
 
 </body>
