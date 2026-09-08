@@ -183,8 +183,6 @@
         .btn-danger:hover { box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4); }
         .btn-secondary { background: linear-gradient(135deg, #64748b 0%, #475569 100%); }
         .btn-secondary:hover { box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4); }
-        .btn-disabled { background: #94a3b8; cursor: not-allowed; opacity: 0.6; }
-        .btn-disabled:hover { transform: none; box-shadow: none; }
         .btn::before { margin-left: 8px; }
         
         .btn-submit { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%); color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 18px; transition: 0.3s; letter-spacing: 1px; padding: 14px; width: 100%; }
@@ -435,7 +433,7 @@
         .login-box .close-btn { background: none; border: none; font-size: 14px; color: #94a3b8; cursor: pointer; margin-top: 10px; }
         .login-box .close-btn:hover { color: #475569; }
 
-        /* ===== صفحة اللاعب الشخصية (مثل التطبيق) ===== */
+        /* ===== صفحة اللاعب الشخصية ===== */
         .player-dashboard { padding: 10px 0; }
         .player-dashboard .section-title {
             font-size: 16px;
@@ -498,14 +496,12 @@
             display: block;
         }
         
-        /* ===== ألوان الحضور والغياب ===== */
         .absence-table .status-present { background: #dcfce7 !important; color: #166534; border-bottom: 2px solid #16a34a; }
         .absence-table .status-absent { background: #fee2e2 !important; color: #991b1b; border-bottom: 2px solid #dc2626; }
         .absence-table .status-excused { background: #fef9c3 !important; color: #854d0e; border-bottom: 2px solid #d97706; }
         .absence-table .status-sick { background: #fce4ec !important; color: #9a1b3a; border-bottom: 2px solid #9a1b3a; }
         .absence-table .status-empty { background: #f1f5f9 !important; color: #94a3b8; }
         
-        /* ===== وسيلة الإيضاح ===== */
         .legend {
             display: flex;
             gap: 12px;
@@ -524,7 +520,6 @@
         .legend .color-box.sick { background: #fce4ec; }
         .legend .color-box.empty { background: #f1f5f9; }
         
-        /* ===== ملاحظات المدرب (للقراءة فقط) ===== */
         .player-dashboard .note-item {
             background: #f1f5f9;
             padding: 10px 14px;
@@ -554,7 +549,6 @@
             border-radius: 10px;
         }
         
-        /* ===== رسالة للاعب ===== */
         .readonly-message {
             background: #dbeafe;
             border-radius: 8px;
@@ -588,16 +582,6 @@
 
         .empty-state { text-align: center; padding: 20px; color: #94a3b8; font-size: 14px; }
         .empty-state .icon { font-size: 40px; display: block; margin-bottom: 8px; }
-        
-        .info-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            background: #dbeafe;
-            color: #1e40af;
-        }
     </style>
 </head>
 <body>
@@ -729,7 +713,7 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- صفحة اللاعب الشخصية (مثل التطبيق) -->
+    <!-- صفحة اللاعب الشخصية -->
     <!-- ============================================================ -->
     <div id="playerPage" style="display:none;">
         <div class="player-dashboard" id="playerDashboard">
@@ -760,12 +744,12 @@
     let currentPlayer = null;
     
     // ============================================================
-    // 🌐 رابط Google Apps Script
+    // 🌐 رابط Google Apps Script (نقطة الربط المشتركة)
     // ============================================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbzAzZliXOYx6ITX9gd9Wxqvmwo4Wj-5mfYujA_kmjjb63ZIcntZ1G0l8G54LGlKQRYV5Q/exec';
     
     // ============================================================
-    // 1. دوال التخزين
+    // 1. دوال التخزين المحلي
     // ============================================================
     
     function getAthletes() {
@@ -811,7 +795,130 @@
     }
     
     // ============================================================
-    // 2. دالة حساب الفئة العمرية حسب UWW
+    // 2. المزامنة مع السحابة (الربط بين التطبيق والموقع)
+    // ============================================================
+    
+    function syncToCloud(data) {
+        if (!navigator.onLine) {
+            console.log('⚠️ لا يوجد اتصال بالإنترنت، سيتم الحفظ محلياً فقط');
+            return Promise.resolve({ success: false, error: 'offline' });
+        }
+        
+        return fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                console.log('✅ تم الحفظ في السحابة بنجاح');
+                return result;
+            } else {
+                console.error('❌ فشل الحفظ في السحابة:', result.error);
+                return result;
+            }
+        })
+        .catch(error => {
+            console.error('❌ خطأ في الاتصال بالسحابة:', error);
+            return { success: false, error: error.message };
+        });
+    }
+    
+    function syncFromCloud() {
+        if (!navigator.onLine) {
+            console.log('⚠️ لا يوجد اتصال بالإنترنت، سيتم استخدام البيانات المحلية');
+            return Promise.resolve([]);
+        }
+        
+        return fetch(API_URL + '?action=get')
+        .then(response => response.json())
+        .then(result => {
+            if (result.success && result.data) {
+                console.log('✅ تم جلب البيانات من السحابة:', result.data.length, 'لاعب');
+                return result.data;
+            } else {
+                console.error('❌ فشل جلب البيانات:', result.error);
+                return [];
+            }
+        })
+        .catch(error => {
+            console.error('❌ خطأ في الاتصال:', error);
+            return [];
+        });
+    }
+    
+    function mergeData(cloudData, localData) {
+        const existingEmails = new Set(localData.map(a => a.email));
+        let newCount = 0;
+        
+        cloudData.forEach(cloudItem => {
+            const email = cloudItem['البريد الإلكتروني'] || cloudItem['email'] || '';
+            if (email && !existingEmails.has(email)) {
+                const newAthlete = {
+                    id: Date.now() + Math.random() * 1000 + newCount,
+                    fullName: cloudItem['الاسم الكامل'] || cloudItem['fullName'] || cloudItem['الاسم'] || '',
+                    birthDate: cloudItem['تاريخ الميلاد'] || cloudItem['birthDate'] || '',
+                    age: parseInt(cloudItem['العمر'] || cloudItem['age'] || 0),
+                    phone: cloudItem['رقم الهاتف'] || cloudItem['phone'] || '',
+                    email: email,
+                    password: cloudItem['password'] || '1234',
+                    sport: cloudItem['الرياضة'] || cloudItem['sport'] || '',
+                    category: cloudItem['الفئة (UWW)'] || cloudItem['category'] || 'Seniors',
+                    categoryArabic: '',
+                    categoryCSS: 'category-seniors',
+                    consent: cloudItem['موافقة ولي الأمر'] === 'نعم' || cloudItem['consent'] === true,
+                    regNumber: cloudItem['رقم المصارع'] || cloudItem['regNumber'] || `REG-${Date.now()}-${newCount}`,
+                    registrationDate: cloudItem['تاريخ التسجيل'] || cloudItem['registrationDate'] || new Date().toISOString(),
+                    absences: cloudItem['absences'] || {},
+                    notes: cloudItem['notes'] || []
+                };
+                
+                const age = newAthlete.age;
+                const cat = getUWWAgeCategory(age);
+                newAthlete.category = cat.name;
+                newAthlete.categoryArabic = cat.arabic;
+                newAthlete.categoryCSS = cat.css;
+                
+                localData.push(newAthlete);
+                newCount++;
+            }
+        });
+        
+        return { merged: localData, newCount: newCount };
+    }
+    
+    function syncWithCloud() {
+        const statusDiv = document.getElementById('syncStatus');
+        statusDiv.className = 'sync-status loading';
+        statusDiv.textContent = '⏳ جاري المزامنة مع السحابة...';
+        
+        syncFromCloud().then(cloudData => {
+            if (cloudData && cloudData.length > 0) {
+                const localData = getAthletes();
+                const result = mergeData(cloudData, localData);
+                
+                if (result.newCount > 0) {
+                    saveAthletesLocally(result.merged);
+                    statusDiv.className = 'sync-status success';
+                    statusDiv.textContent = `✅ تمت المزامنة! تم إضافة ${result.newCount} لاعب جديد.`;
+                } else {
+                    statusDiv.className = 'sync-status success';
+                    statusDiv.textContent = '✅ تمت المزامنة! لا توجد بيانات جديدة.';
+                }
+                updateCounter();
+            } else {
+                statusDiv.className = 'sync-status error';
+                statusDiv.textContent = '⚠️ لا توجد بيانات في السحابة أو فشل الاتصال.';
+            }
+        }).catch(error => {
+            statusDiv.className = 'sync-status error';
+            statusDiv.textContent = '❌ خطأ في المزامنة: ' + error.message;
+        });
+    }
+    
+    // ============================================================
+    // 3. دالة حساب الفئة العمرية حسب UWW
     // ============================================================
     
     function getUWWAgeCategory(age) {
@@ -831,22 +938,14 @@
     }
     
     // ============================================================
-    // 3. أيام الأسبوع والأشهر
+    // 4. أيام الأسبوع والأشهر
     // ============================================================
     
     const dayNames = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
     const monthNames = ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
     
-    function getDaysInMonth(year, month) {
-        return new Date(year, month + 1, 0).getDate();
-    }
-    
-    function getFirstDayOfMonth(year, month) {
-        return new Date(year, month, 1).getDay();
-    }
-    
     // ============================================================
-    // 4. بيانات البطولات
+    // 5. بيانات البطولات
     // ============================================================
     
     function getTournaments() {
@@ -888,7 +987,7 @@
     }
     
     // ============================================================
-    // 5. دوال التنقل بين الصفحات
+    // 6. دوال التنقل بين الصفحات
     // ============================================================
     
     function showMainPage() {
@@ -932,12 +1031,11 @@
     }
     
     // ============================================================
-    // 6. عرض لوحة اللاعب الشخصية (للقراءة فقط للاعب)
+    // 7. عرض لوحة اللاعب الشخصية
     // ============================================================
     
     function renderPlayerDashboard(player) {
         const dashboard = document.getElementById('playerDashboard');
-        
         const absences = player.absences || {};
         const notes = player.notes || [];
         const now = new Date();
@@ -984,7 +1082,6 @@
             </div>
         `;
         
-        // جدول الغيابات (للقراءة فقط)
         html += `<div class="absence-table-wrapper"><table class="absence-table">`;
         html += `<thead><tr><th style="min-width:60px;">الأسبوع</th>`;
         dayNames.forEach(day => {
@@ -1043,7 +1140,6 @@
         html += `</tbody></table></div>`;
         html += `<div style="text-align:center; margin-top:8px; font-size:12px; color:#94a3b8;">👆 اضغط على أي يوم لعرض التفاصيل (للقراءة فقط)</div>`;
         
-        // ملاحظات المدرب (للقراءة فقط)
         html += `<div class="section-title">📝 ملاحظات المدرب</div>`;
         
         if (notes.length === 0) {
@@ -1065,7 +1161,6 @@
         
         dashboard.innerHTML = html;
         
-        // إضافة حدث النقر على أيام الجدول لعرض التفاصيل
         document.querySelectorAll('.absence-table td:not(.status-empty)').forEach(cell => {
             cell.style.cursor = 'pointer';
             cell.addEventListener('click', function() {
@@ -1076,7 +1171,7 @@
     }
     
     // ============================================================
-    // 7. عرض البطولات
+    // 8. عرض البطولات
     // ============================================================
     
     function renderTournaments() {
@@ -1101,7 +1196,7 @@
     }
     
     // ============================================================
-    // 8. نظام تسجيل الدخول
+    // 9. نظام تسجيل الدخول
     // ============================================================
     
     function showLoginDialog() {
@@ -1173,7 +1268,7 @@
     }
     
     // ============================================================
-    // 9. نموذج التسجيل
+    // 10. نموذج التسجيل
     // ============================================================
     
     const form = document.getElementById('registerForm');
@@ -1185,7 +1280,7 @@
     updateCounter();
     console.log('🚀 موقع NBC جاهز!');
     console.log('🔑 الكود السري الحالي:', SECRET_CODE);
-    console.log('🌐 API URL:', API_URL);
+    console.log('🌐 رابط السحابة:', API_URL);
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -1274,6 +1369,8 @@
             showSuccess(`✅ تم تسجيل المصارع بنجاح!<br>🤼 ${fullName} | 🏷️ ${category.name} (${category.arabic}) | ${sport}`);
             showRegNumber(regNumber);
             form.reset();
+            
+            // ⭐ حفظ في السحابة (ربط التطبيق بالموقع)
             syncToCloud(athleteData);
             
             setTimeout(() => {
@@ -1307,91 +1404,6 @@
     function enableButton() {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'تسجيل مصارع';
-    }
-    
-    // ============================================================
-    // 10. المزامنة مع السحابة
-    // ============================================================
-    
-    function syncToCloud(data) {
-        fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                console.log('✅ تم الحفظ في السحابة بنجاح');
-            } else {
-                console.error('❌ فشل الحفظ في السحابة:', result.error);
-            }
-        })
-        .catch(error => {
-            console.error('❌ خطأ في الاتصال بالسحابة:', error);
-        });
-    }
-    
-    function syncWithCloud() {
-        const statusDiv = document.getElementById('syncStatus');
-        statusDiv.innerHTML = '<span class="loading">⏳ جاري المزامنة مع السحابة...</span>';
-        
-        fetch(API_URL + '?action=get')
-        .then(response => response.json())
-        .then(result => {
-            if (result.success && result.data) {
-                const cloudData = result.data;
-                const localData = getAthletes();
-                const existingEmails = new Set(localData.map(a => a.email));
-                let newCount = 0;
-                
-                cloudData.forEach(cloudItem => {
-                    if (!existingEmails.has(cloudItem['البريد الإلكتروني'])) {
-                        const newAthlete = {
-                            id: Date.now() + Math.random() * 1000 + newCount,
-                            fullName: cloudItem['الاسم الكامل'] || cloudItem['الاسم'] || '',
-                            birthDate: cloudItem['تاريخ الميلاد'] || '',
-                            age: parseInt(cloudItem['العمر']) || 0,
-                            phone: cloudItem['رقم الهاتف'] || '',
-                            email: cloudItem['البريد الإلكتروني'] || '',
-                            password: '1234',
-                            sport: cloudItem['الرياضة'] || '',
-                            category: cloudItem['الفئة (UWW)'] || 'Seniors',
-                            categoryArabic: '',
-                            categoryCSS: 'category-seniors',
-                            consent: cloudItem['موافقة ولي الأمر'] === 'نعم',
-                            regNumber: cloudItem['رقم المصارع'] || `REG-${Date.now()}-${newCount}`,
-                            registrationDate: cloudItem['تاريخ التسجيل'] || new Date().toISOString(),
-                            absences: {},
-                            notes: []
-                        };
-                        
-                        const age = newAthlete.age;
-                        const cat = getUWWAgeCategory(age);
-                        newAthlete.category = cat.name;
-                        newAthlete.categoryArabic = cat.arabic;
-                        newAthlete.categoryCSS = cat.css;
-                        
-                        localData.push(newAthlete);
-                        newCount++;
-                    }
-                });
-                
-                if (newCount > 0) {
-                    saveAthletesLocally(localData);
-                    statusDiv.innerHTML = `<span class="success">✅ تمت المزامنة بنجاح! تم إضافة ${newCount} لاعب جديد من السحابة.</span>`;
-                } else {
-                    statusDiv.innerHTML = `<span class="success">✅ تمت المزامنة بنجاح! لا توجد بيانات جديدة.</span>`;
-                }
-                
-                updateCounter();
-            } else {
-                statusDiv.innerHTML = `<span class="error">❌ فشل جلب البيانات من السحابة: ${result.error || 'خطأ غير معروف'}</span>`;
-            }
-        })
-        .catch(error => {
-            statusDiv.innerHTML = `<span class="error">❌ خطأ في الاتصال بالسحابة: ${error.message}</span>`;
-        });
     }
     
     // ============================================================
@@ -1830,9 +1842,8 @@
     
     console.log('✅ الموقع جاهز!');
     console.log('🔑 الكود السري الحالي:', SECRET_CODE);
-    console.log('🌐 رابط المزامنة:', API_URL);
-    console.log('📅 جدول الغيابات على مدار السنة جاهز!');
-    console.log('👁️ المصارع يرى الملاحظات والغيابات فقط (للقراءة)');
+    console.log('🌐 رابط السحابة:', API_URL);
+    console.log('🔄 استخدم زر "مزامنة مع السحابة" لمشاركة البيانات مع التطبيق');
 </script>
 
 </body>
