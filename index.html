@@ -392,55 +392,6 @@
         .copy-sport-btn { background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 4px; padding: 2px 12px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .copy-sport-btn:hover { background: rgba(255,255,255,0.35); }
 
-        .login-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            padding: 20px;
-        }
-        .login-box {
-            background: white;
-            border-radius: 24px;
-            padding: 35px 30px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
-            max-height: 95vh;
-            overflow-y: auto;
-        }
-        .login-box .icon { font-size: 48px; margin-bottom: 8px; }
-        .login-box h2 { color: #1e293b; margin-bottom: 4px; font-size: 20px; }
-        .login-box .sub-text { color: #64748b; font-size: 13px; margin-bottom: 15px; }
-        .login-box .input-group { margin-bottom: 10px; text-align: right; }
-        .login-box .input-group label { display: block; font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 4px; }
-        .login-box .input-group input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
-            background: #f8fafc;
-            transition: 0.3s;
-        }
-        .login-box .input-group input:focus {
-            border-color: #8b5cf6;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
-            background: white;
-        }
-        .login-box .error-msg { color: #ef4444; font-size: 13px; margin-top: 6px; display: none; padding: 8px 12px; background: #fef2f2; border-radius: 8px; border: 1px solid #fca5a5; }
-        .login-box .link-btn { display: inline-block; margin-top: 10px; font-size: 13px; color: #8b5cf6; cursor: pointer; text-decoration: underline; background: none; border: none; }
-        .login-box .link-btn:hover { color: #6d28d9; }
-        .login-box .close-btn { background: none; border: none; font-size: 14px; color: #94a3b8; cursor: pointer; margin-top: 10px; }
-        .login-box .close-btn:hover { color: #475569; }
-
         .player-dashboard { padding: 10px 0; }
         .player-dashboard .section-title {
             font-size: 16px;
@@ -481,12 +432,6 @@
             font-size: 10px;
             white-space: nowrap;
         }
-        .absence-table th .month-name {
-            display: block;
-            font-size: 9px;
-            color: #94a3b8;
-            font-weight: 400;
-        }
         .absence-table td {
             padding: 4px 3px;
             text-align: center;
@@ -495,12 +440,6 @@
             font-weight: 600;
         }
         .absence-table tr:nth-child(even) td { background: #f8fafc; }
-        .absence-table .day-name {
-            font-size: 9px;
-            font-weight: 400;
-            color: #64748b;
-            display: block;
-        }
         
         .absence-table .status-present { background: #dcfce7 !important; color: #166534; border-bottom: 2px solid #16a34a; }
         .absence-table .status-absent { background: #fee2e2 !important; color: #991b1b; border-bottom: 2px solid #dc2626; }
@@ -532,7 +471,6 @@
             border-radius: 8px;
             margin-bottom: 6px;
             border-right: 3px solid #8b5cf6;
-            position: relative;
         }
         .player-dashboard .note-item .note-header {
             display: flex;
@@ -547,26 +485,18 @@
             color: #8b5cf6;
             font-weight: 600;
         }
-        .player-dashboard .note-item .readonly-badge {
-            font-size: 10px;
-            color: #94a3b8;
-            background: #e2e8f0;
-            padding: 1px 8px;
-            border-radius: 10px;
-        }
-        
-        .readonly-message {
-            background: #dbeafe;
-            border-radius: 8px;
-            padding: 10px 14px;
-            margin: 10px 0;
-            font-size: 13px;
-            color: #1e40af;
-            text-align: center;
-            border: 1px solid #93c5fd;
-        }
-        .readonly-message .icon { font-size: 20px; display: inline-block; margin-left: 8px; }
 
+        .absence-form { 
+            margin-top: 10px; 
+            padding: 15px; 
+            background: #f8fafc; 
+            border-radius: 10px; 
+            border: 1px solid #e2e8f0; 
+        }
+        .absence-form .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+        .absence-form .row select, .absence-form .row input { flex: 1; min-width: 100px; }
+        .absence-form .row .btn { flex: 0 0 auto; }
+        
         .tournament-card {
             background: linear-gradient(135deg, #f8fafc, #f1f5f9);
             border-radius: 10px;
@@ -642,8 +572,7 @@
         <h2 style="text-align:center; color:#1e293b; margin-bottom:15px; font-size:18px;">🏅 منصة المصارعين</h2>
         
         <button class="btn btn-primary" onclick="showRegisterForm()" style="margin-top:5px;">📝 تسجيل جديد</button>
-        <button class="btn btn-success" onclick="showLoginDialog()">🔑 دخول إلى حسابي</button>
-        <button class="btn btn-warning" onclick="showTournaments()">🏆 البطولات</button>
+        <button class="btn btn-success" onclick="showTournaments()">🏆 البطولات</button>
         
         <div class="counter" style="margin-top:15px;">
             👥 عدد المصارعين: <span id="counter">0</span>
@@ -674,9 +603,6 @@
 
             <label><span class="label-icon">✉️</span> البريد الإلكتروني <span class="required">*</span></label>
             <input type="email" id="email" placeholder="example@email.com" required>
-
-            <label><span class="label-icon">🔑</span> الرقم السري <span class="required">*</span></label>
-            <input type="password" id="password" placeholder="أدخل رقم سري (4 أحرف على الأقل)" minlength="4" required>
 
             <label><span class="label-icon">🤼</span> نوع المصارعة</label>
             <select id="sport">
@@ -719,17 +645,6 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- صفحة اللاعب الشخصية -->
-    <!-- ============================================================ -->
-    <div id="playerPage" style="display:none;">
-        <div class="player-dashboard" id="playerDashboard">
-            <!-- يتم ملؤها بواسطة JavaScript -->
-        </div>
-        <button class="btn btn-secondary" onclick="logoutPlayer()" style="margin-top:10px;">🚪 تسجيل الخروج</button>
-        <button class="btn btn-secondary" onclick="showMainPage()" style="margin-top:5px;">🔙 رجوع</button>
-    </div>
-
-    <!-- ============================================================ -->
     <!-- صفحة البطولات -->
     <!-- ============================================================ -->
     <div id="tournamentsPage" style="display:none;">
@@ -744,13 +659,11 @@
     // 🔑 إعدادات الكود السري
     // ============================================================
     let SECRET_CODE = "2025";
-    const RECOVERY_EMAIL = "faresbarca069@gmail.com";
     let generatedVerificationCode = null;
     let isCodeVisible = false;
-    let currentPlayer = null;
     
     // ============================================================
-    // 🌐 رابط Google Apps Script (تم تحديثه بالرابط الجديد)
+    // 🌐 رابط Google Apps Script
     // ============================================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbzSeeVeSpy0mLomzqe6004_6DTmWX5CRA7uXa0ezmo_kmex-WnD9TH4tkXHrqmz40Fd2A/exec';
     
@@ -783,25 +696,34 @@
         return saveAthletesLocally(athletes);
     }
     
-    function deleteAthleteById(id) {
-        let athletes = getAthletes();
-        athletes = athletes.filter(a => a.id !== id);
-        return saveAthletesLocally(athletes);
-    }
-    
     function updateCounter() {
         const athletes = getAthletes();
         const counter = document.getElementById('counter');
         if (counter) counter.textContent = athletes.length;
     }
     
-    function getPlayerByEmail(email) {
-        const athletes = getAthletes();
-        return athletes.find(a => a.email && a.email.toLowerCase() === email.toLowerCase());
+    // ============================================================
+    // 2. دالة حساب الفئة العمرية حسب UWW
+    // ============================================================
+    
+    function getUWWAgeCategory(age) {
+        if (age >= 14 && age <= 15) {
+            return { name: "Ecoliers", arabic: "تلاميذ", css: "category-ecoliers" };
+        } else if (age >= 16 && age <= 17) {
+            return { name: "Cadets", arabic: "أشبال", css: "category-cadets" };
+        } else if (age >= 18 && age <= 20) {
+            return { name: "Juniors", arabic: "ناشئون", css: "category-juniors" };
+        } else if (age >= 19 && age <= 23) {
+            return { name: "U23", arabic: "أقل من 23 سنة", css: "category-u23" };
+        } else if (age >= 35) {
+            return { name: "Vétérans", arabic: "مخضرمون", css: "category-veterans" };
+        } else {
+            return { name: "Seniors", arabic: "كبار", css: "category-seniors" };
+        }
     }
     
     // ============================================================
-    // 2. دوال المزامنة مع السحابة (الربط بين التطبيق والموقع)
+    // 3. المزامنة مع السحابة (إرسال واستقبال)
     // ============================================================
     
     function syncToCloud(data) {
@@ -868,7 +790,7 @@
                     age: parseInt(cloudItem['العمر'] || cloudItem['age'] || 0),
                     phone: cloudItem['رقم الهاتف'] || cloudItem['phone'] || '',
                     email: email,
-                    password: cloudItem['password'] || '1234',
+                    password: '1234',
                     sport: cloudItem['الرياضة'] || cloudItem['sport'] || '',
                     category: cloudItem['الفئة (UWW)'] || cloudItem['category'] || 'Seniors',
                     categoryArabic: '',
@@ -876,8 +798,8 @@
                     consent: cloudItem['موافقة ولي الأمر'] === 'نعم' || cloudItem['consent'] === true,
                     regNumber: cloudItem['رقم المصارع'] || cloudItem['regNumber'] || `REG-${Date.now()}-${newCount}`,
                     registrationDate: cloudItem['تاريخ التسجيل'] || cloudItem['registrationDate'] || new Date().toISOString(),
-                    absences: cloudItem['absences'] || {},
-                    notes: cloudItem['notes'] || []
+                    absences: {},
+                    notes: []
                 };
                 
                 const age = newAthlete.age;
@@ -921,26 +843,6 @@
             statusDiv.className = 'sync-status error';
             statusDiv.textContent = '❌ خطأ في المزامنة: ' + error.message;
         });
-    }
-    
-    // ============================================================
-    // 3. دالة حساب الفئة العمرية حسب UWW
-    // ============================================================
-    
-    function getUWWAgeCategory(age) {
-        if (age >= 14 && age <= 15) {
-            return { name: "Ecoliers", arabic: "تلاميذ", css: "category-ecoliers" };
-        } else if (age >= 16 && age <= 17) {
-            return { name: "Cadets", arabic: "أشبال", css: "category-cadets" };
-        } else if (age >= 18 && age <= 20) {
-            return { name: "Juniors", arabic: "ناشئون", css: "category-juniors" };
-        } else if (age >= 19 && age <= 23) {
-            return { name: "U23", arabic: "أقل من 23 سنة", css: "category-u23" };
-        } else if (age >= 35) {
-            return { name: "Vétérans", arabic: "مخضرمون", css: "category-veterans" };
-        } else {
-            return { name: "Seniors", arabic: "كبار", css: "category-seniors" };
-        }
     }
     
     // ============================================================
@@ -999,7 +901,6 @@
     function showMainPage() {
         document.getElementById('mainPage').style.display = 'block';
         document.getElementById('registerPage').style.display = 'none';
-        document.getElementById('playerPage').style.display = 'none';
         document.getElementById('tournamentsPage').style.display = 'none';
         updateCounter();
     }
@@ -1007,177 +908,21 @@
     function showRegisterForm() {
         document.getElementById('mainPage').style.display = 'none';
         document.getElementById('registerPage').style.display = 'block';
-        document.getElementById('playerPage').style.display = 'none';
         document.getElementById('tournamentsPage').style.display = 'none';
         document.getElementById('result').className = 'alert';
         document.getElementById('result').style.display = 'none';
         document.getElementById('regNumberBox').style.display = 'none';
     }
     
-    function showPlayerPage(player) {
-        currentPlayer = player;
-        document.getElementById('mainPage').style.display = 'none';
-        document.getElementById('registerPage').style.display = 'none';
-        document.getElementById('playerPage').style.display = 'block';
-        document.getElementById('tournamentsPage').style.display = 'none';
-        renderPlayerDashboard(player);
-    }
-    
     function showTournaments() {
         document.getElementById('mainPage').style.display = 'none';
         document.getElementById('registerPage').style.display = 'none';
-        document.getElementById('playerPage').style.display = 'none';
         document.getElementById('tournamentsPage').style.display = 'block';
         renderTournaments();
     }
     
-    function logoutPlayer() {
-        currentPlayer = null;
-        showMainPage();
-    }
-    
     // ============================================================
-    // 7. عرض لوحة اللاعب الشخصية
-    // ============================================================
-    
-    function renderPlayerDashboard(player) {
-        const dashboard = document.getElementById('playerDashboard');
-        const absences = player.absences || {};
-        const notes = player.notes || [];
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        
-        let html = `
-            <div style="text-align:center; margin-bottom:15px;">
-                <span style="font-size:40px;">🤼</span>
-                <h3 style="color:#1e293b; margin:5px 0;">${player.fullName}</h3>
-                <span style="font-size:13px; color:#8b5cf6; font-weight:600;">${player.regNumber}</span>
-                <span style="display:block; font-size:12px; color:#94a3b8;">${player.sport || 'مصارعة'}</span>
-            </div>
-            
-            <div class="readonly-message">
-                <span class="icon">👁️</span> يمكنك مشاهدة بياناتك وملاحظات المدرب فقط. لا يمكنك التعديل.
-            </div>
-            
-            <div class="section-title">📋 معلومات شخصية</div>
-            <div class="info-card">
-                <div class="label">📧 البريد الإلكتروني</div>
-                <div class="value">${player.email}</div>
-            </div>
-            <div class="info-card">
-                <div class="label">📅 تاريخ الميلاد</div>
-                <div class="value">${player.birthDate || 'غير محدد'}</div>
-            </div>
-            <div class="info-card">
-                <div class="label">📞 رقم الهاتف</div>
-                <div class="value">${player.phone || 'غير محدد'}</div>
-            </div>
-            <div class="info-card">
-                <div class="label">🏷️ الفئة (UWW)</div>
-                <div class="value"><span class="category-badge ${player.categoryCSS || 'category-seniors'}">${player.category || 'Seniors'}</span></div>
-            </div>
-            
-            <div class="section-title">📅 جدول الغيابات - السنة ${currentYear}</div>
-            
-            <div class="legend">
-                <span class="item"><span class="color-box present"></span> حاضر</span>
-                <span class="item"><span class="color-box absent"></span> غائب</span>
-                <span class="item"><span class="color-box excused"></span> معذور</span>
-                <span class="item"><span class="color-box sick"></span> مريض</span>
-                <span class="item"><span class="color-box empty"></span> لم يُحدد</span>
-            </div>
-        `;
-        
-        html += `<div class="absence-table-wrapper"><table class="absence-table">`;
-        html += `<thead><tr><th style="min-width:60px;">الأسبوع</th>`;
-        dayNames.forEach(day => {
-            html += `<th>${day}</th>`;
-        });
-        html += `</tr></thead><tbody>`;
-        
-        const startDate = new Date(currentYear, 0, 1);
-        const endDate = new Date(currentYear, 11, 31);
-        let currentDate = new Date(startDate);
-        let weekNumber = 1;
-        
-        while (currentDate <= endDate) {
-            const weekStart = new Date(currentDate);
-            html += `<tr><td style="font-weight:700; font-size:10px; color:#64748b;">${weekNumber}</td>`;
-            
-            for (let i = 0; i < 7; i++) {
-                const dayDate = new Date(currentDate);
-                if (dayDate > endDate) {
-                    html += `<td class="status-empty">-</td>`;
-                    continue;
-                }
-                
-                const dateKey = dayDate.toISOString().split('T')[0];
-                const status = absences[dateKey] || 'empty';
-                
-                let statusClass = 'status-empty';
-                let statusText = '●';
-                
-                if (status === 'present') {
-                    statusClass = 'status-present';
-                    statusText = '✓';
-                } else if (status === 'absent') {
-                    statusClass = 'status-absent';
-                    statusText = '✗';
-                } else if (status === 'excused') {
-                    statusClass = 'status-excused';
-                    statusText = '◉';
-                } else if (status === 'sick') {
-                    statusClass = 'status-sick';
-                    statusText = '✦';
-                }
-                
-                const dayNum = dayDate.getDate();
-                html += `<td class="${statusClass}" title="${dayNum} ${monthNames[dayDate.getMonth()]} - ${statusText}">${dayNum}</td>`;
-                
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
-            
-            html += `</tr>`;
-            weekNumber++;
-            currentDate = new Date(weekStart);
-            currentDate.setDate(currentDate.getDate() + 7);
-        }
-        
-        html += `</tbody></table></div>`;
-        html += `<div style="text-align:center; margin-top:8px; font-size:12px; color:#94a3b8;">👆 اضغط على أي يوم لعرض التفاصيل (للقراءة فقط)</div>`;
-        
-        html += `<div class="section-title">📝 ملاحظات المدرب</div>`;
-        
-        if (notes.length === 0) {
-            html += `<div class="empty-state"><span class="icon">📝</span>لا توجد ملاحظات</div>`;
-        } else {
-            notes.forEach(note => {
-                html += `
-                    <div class="note-item">
-                        <div class="note-header">
-                            <span class="note-coach">👨‍🏫 المدرب</span>
-                            <span class="note-date">${note.date || ''}</span>
-                            <span class="readonly-badge">🔒 للقراءة فقط</span>
-                        </div>
-                        <div class="note-text">${note.text || ''}</div>
-                    </div>
-                `;
-            });
-        }
-        
-        dashboard.innerHTML = html;
-        
-        document.querySelectorAll('.absence-table td:not(.status-empty)').forEach(cell => {
-            cell.style.cursor = 'pointer';
-            cell.addEventListener('click', function() {
-                const dateText = this.getAttribute('title') || 'تاريخ غير محدد';
-                alert(`📅 ${dateText}\n\n🔒 هذه المعلومات للقراءة فقط.\nلا يمكنك تعديلها.`);
-            });
-        });
-    }
-    
-    // ============================================================
-    // 8. عرض البطولات
+    // 7. عرض البطولات
     // ============================================================
     
     function renderTournaments() {
@@ -1202,79 +947,7 @@
     }
     
     // ============================================================
-    // 9. نظام تسجيل الدخول
-    // ============================================================
-    
-    function showLoginDialog() {
-        const overlay = document.createElement('div');
-        overlay.className = 'login-overlay';
-        overlay.id = 'loginOverlay';
-        overlay.innerHTML = `
-            <div class="login-box" id="loginBox">
-                <div class="icon">🔑</div>
-                <h2>تسجيل الدخول</h2>
-                <p class="sub-text">أدخل بريدك الإلكتروني والرقم السري</p>
-                
-                <div class="input-group">
-                    <label>📧 البريد الإلكتروني</label>
-                    <input type="email" id="loginEmail" placeholder="example@email.com" dir="ltr" autofocus>
-                </div>
-                <div class="input-group">
-                    <label>🔑 الرقم السري</label>
-                    <input type="password" id="loginPassword" placeholder="●●●●" dir="ltr">
-                </div>
-                <div class="error-msg" id="loginError">❌ البريد الإلكتروني أو الرقم السري غير صحيح!</div>
-                
-                <button class="btn btn-success" onclick="loginPlayer()" style="margin-top:5px;">🔓 دخول</button>
-                <br>
-                <button class="link-btn" onclick="closeLoginDialog()">🔙 إلغاء</button>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        
-        setTimeout(() => {
-            document.getElementById('loginEmail').focus();
-        }, 300);
-        
-        document.getElementById('loginEmail').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') document.getElementById('loginPassword').focus();
-        });
-        document.getElementById('loginPassword').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') loginPlayer();
-        });
-    }
-    
-    function closeLoginDialog() {
-        const overlay = document.getElementById('loginOverlay');
-        if (overlay) overlay.remove();
-    }
-    
-    function loginPlayer() {
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
-        const error = document.getElementById('loginError');
-        
-        if (!email || !password) {
-            error.textContent = '❌ الرجاء إدخال البريد الإلكتروني والرقم السري';
-            error.style.display = 'block';
-            return;
-        }
-        
-        const player = getPlayerByEmail(email);
-        if (player && player.password === password) {
-            error.style.display = 'none';
-            closeLoginDialog();
-            showPlayerPage(player);
-        } else {
-            error.textContent = '❌ البريد الإلكتروني أو الرقم السري غير صحيح!';
-            error.style.display = 'block';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('loginPassword').focus();
-        }
-    }
-    
-    // ============================================================
-    // 10. نموذج التسجيل
+    // 8. نموذج التسجيل (مع مزامنة تلقائية)
     // ============================================================
     
     const form = document.getElementById('registerForm');
@@ -1285,7 +958,6 @@
     
     updateCounter();
     console.log('🚀 موقع NBC جاهز!');
-    console.log('🔑 الكود السري الحالي:', SECRET_CODE);
     console.log('🌐 رابط السحابة:', API_URL);
     
     form.addEventListener('submit', function(e) {
@@ -1297,7 +969,6 @@
         const birthDate = document.getElementById('birthDate').value;
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
         const sport = document.getElementById('sport').value;
         const consent = document.getElementById('parentConsent').checked;
         
@@ -1305,14 +976,8 @@
         resultDiv.style.display = 'none';
         regNumberBox.style.display = 'none';
         
-        if (!fullName || !birthDate || !phone || !email || !password) {
+        if (!fullName || !birthDate || !phone || !email) {
             showError('❌ الرجاء ملء جميع الحقول المطلوبة (*)');
-            enableButton();
-            return;
-        }
-        
-        if (password.length < 4) {
-            showError('❌ الرقم السري يجب أن يكون 4 أحرف على الأقل');
             enableButton();
             return;
         }
@@ -1325,13 +990,6 @@
         
         if (!consent) {
             showError('❌ يجب الموافقة على شروط التسجيل');
-            enableButton();
-            return;
-        }
-        
-        const existingPlayer = getPlayerByEmail(email);
-        if (existingPlayer) {
-            showError('❌ هذا البريد الإلكتروني مسجل بالفعل! يرجى استخدام بريد آخر.');
             enableButton();
             return;
         }
@@ -1357,7 +1015,7 @@
             age: age,
             phone: phone,
             email: email,
-            password: password,
+            password: '1234',
             sport: sport,
             category: category.name,
             categoryArabic: category.arabic,
@@ -1369,6 +1027,7 @@
             notes: []
         };
         
+        // حفظ محلياً
         const success = addAthlete(athleteData);
         
         if (success) {
@@ -1376,11 +1035,15 @@
             showRegNumber(regNumber);
             form.reset();
             
-            // ⭐ حفظ في السحابة (ربط التطبيق بالموقع)
-            syncToCloud(athleteData);
+            // ⭐ مزامنة تلقائية مع السحابة (ترسل البيانات فوراً إلى التطبيق)
+            syncToCloud(athleteData).then(result => {
+                if (result.success) {
+                    console.log('✅ تم إرسال البيانات إلى التطبيق بنجاح');
+                }
+            });
             
             setTimeout(() => {
-                alert(`🎉 مرحباً ${fullName}!\n\n🆔 رقم المصارع: ${regNumber}\n📧 بريدك الإلكتروني: ${email}\n🔑 رقمك السري: ${password}\n\n📌 استخدم هذه المعلومات لتسجيل الدخول إلى حسابك الشخصي.`);
+                alert(`🎉 مرحباً ${fullName}!\n\n🆔 رقم المصارع: ${regNumber}\n📧 بريدك الإلكتروني: ${email}\n\n📌 سيتم إرسال بياناتك إلى المدرب للموافقة.`);
             }, 500);
         } else {
             showError('❌ فشل حفظ البيانات!');
@@ -1413,7 +1076,7 @@
     }
     
     // ============================================================
-    // 11. نظام الكود السري (للتصدير)
+    // 9. نظام الكود السري (للتصدير)
     // ============================================================
     
     function toggleAllCodeVisibility() {
@@ -1549,7 +1212,7 @@
     }
     
     // ============================================================
-    // 12. تصدير البيانات
+    // 10. تصدير البيانات
     // ============================================================
     
     function exportData() {
@@ -1686,15 +1349,13 @@
     
     function deleteAthleteFromList(id) {
         if (confirm('⚠️ هل أنت متأكد من حذف هذا المصارع؟')) {
-            const success = deleteAthleteById(id);
-            if (success) {
-                alert('✅ تم حذف المصارع بنجاح!');
-                closeExportModal();
-                exportData();
-                updateCounter();
-            } else {
-                alert('❌ فشل حذف المصارع!');
-            }
+            const athletes = getAthletes();
+            const newAthletes = athletes.filter(a => a.id !== id);
+            saveAthletesLocally(newAthletes);
+            alert('✅ تم حذف المصارع بنجاح!');
+            closeExportModal();
+            exportData();
+            updateCounter();
         }
     }
     
@@ -1826,7 +1487,7 @@
     }
     
     // ============================================================
-    // 13. كشف الفئة تلقائياً
+    // 11. كشف الفئة تلقائياً
     // ============================================================
     
     document.getElementById('birthDate').addEventListener('change', function() {
@@ -1847,9 +1508,8 @@
     setInterval(updateCounter, 5000);
     
     console.log('✅ موقع NBC جاهز!');
-    console.log('🔑 الكود السري الحالي:', SECRET_CODE);
     console.log('🌐 رابط السحابة:', API_URL);
-    console.log('🔄 استخدم زر "مزامنة مع السحابة" لمشاركة البيانات مع التطبيق');
+    console.log('🔄 عند التسجيل، ترسل البيانات تلقائياً إلى التطبيق');
 </script>
 
 </body>
