@@ -17,7 +17,6 @@
             overflow-x: hidden;
             background: #0f172a;
         }
-        
         .wrestling-bg {
             position: fixed;
             top: 0; left: 0;
@@ -63,7 +62,6 @@
         .bg-icons span:nth-child(6) { animation-delay: 3.5s; font-size: 80px; }
         .bg-icons span:nth-child(7) { animation-delay: 8s; font-size: 120px; }
         .bg-icons span:nth-child(8) { animation-delay: 12s; font-size: 100px; }
-        
         @keyframes floatIcon {
             0% { transform: translateY(0px) rotate(0deg) scale(1); }
             25% { transform: translateY(-25px) rotate(4deg) scale(1.04); }
@@ -71,7 +69,6 @@
             75% { transform: translateY(-18px) rotate(3deg) scale(1.02); }
             100% { transform: translateY(0px) rotate(0deg) scale(1); }
         }
-        
         .border-pattern {
             position: absolute;
             width: 100%;
@@ -82,21 +79,19 @@
         }
         .border-pattern.top { top: 0; }
         .border-pattern.bottom { bottom: 0; }
-        
         .container {
             position: relative;
             z-index: 2;
             background: rgba(255, 255, 255, 0.93);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             padding: 30px 28px;
             border-radius: 24px;
             box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(139, 92, 246, 0.2);
             border: 1px solid rgba(255,255,255,0.1);
         }
-        
         .club-header { text-align: center; margin-bottom: 5px; position: relative; }
         .club-logo { display: flex; justify-content: center; align-items: center; margin-bottom: 2px; position: relative; }
         .vibrant-icon {
@@ -143,21 +138,17 @@
         .icon-wrestle { font-size: 38px; animation: wrestleBounce 1.8s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5)); }
         @keyframes wrestleBounce { 0%, 100% { transform: translateY(0px) rotate(0deg); } 25% { transform: translateY(-5px) rotate(-5deg); } 75% { transform: translateY(-5px) rotate(5deg); } }
         .icon-nbc { font-size: 11px; font-weight: 900; color: #fbbf24; letter-spacing: 2px; margin-top: 1px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.3); background: rgba(15, 23, 42, 0.8); padding: 0 10px; border-radius: 10px; }
-        
         .club-name { font-size: 20px; font-weight: 800; color: #1e293b; margin-top: 6px; letter-spacing: 0.5px; line-height: 1.3; }
         .club-name .highlight { color: #8b5cf6; }
         .club-name .gold { color: #d97706; }
         .club-sub { font-size: 11px; color: #64748b; letter-spacing: 1.5px; font-weight: 600; margin-top: 1px; }
         .club-sub .accent { color: #8b5cf6; font-weight: 700; }
         .club-sub2 { font-size: 10px; color: #94a3b8; letter-spacing: 1px; margin-top: 1px; }
-        
         .divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 8px 0 12px; }
         .divider .line { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, #8b5cf6, #f59e0b, #8b5cf6, transparent); }
         .divider .icon { font-size: 14px; color: #8b5cf6; }
-        
         .ring-decoration { display: flex; justify-content: center; gap: 5px; margin: 3px 0 10px; }
         .ring-decoration .dot { width: 5px; height: 5px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #f59e0b); opacity: 0.5; }
-        
         .btn {
             width: 100%;
             padding: 12px;
@@ -183,7 +174,6 @@
         .btn-secondary { background: linear-gradient(135deg, #64748b 0%, #475569 100%); }
         .btn-secondary:hover { box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4); }
         .btn::before { margin-left: 8px; }
-        
         .btn-submit {
             background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%);
             color: white;
@@ -201,7 +191,6 @@
         .btn-submit::before { content: '🤼 '; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        
         label { display: block; font-weight: 600; margin-top: 12px; color: #1e293b; font-size: 13px; }
         label .required { color: #ef4444; }
         label .label-icon { margin-left: 6px; }
@@ -222,16 +211,13 @@
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
         }
         textarea { min-height: 60px; resize: vertical; font-family: inherit; }
-        
         .checkbox-group { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
         .checkbox-group input { width: 18px; height: 18px; margin: 0; accent-color: #8b5cf6; }
         .checkbox-group label { margin: 0; font-weight: normal; font-size: 13px; color: #475569; }
-        
         .alert { padding: 12px 16px; border-radius: 10px; margin-top: 15px; display: none; font-size: 13px; }
         .alert-success { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; border: 1px solid #86efac; display: block; }
         .alert-error { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; border: 1px solid #fca5a5; display: block; }
         .alert-info { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1e40af; border: 1px solid #93c5fd; display: block; }
-        
         .reg-number-box {
             background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
             padding: 14px;
@@ -246,12 +232,9 @@
         }
         .reg-number-box .label { font-size: 12px; color: #64748b; font-weight: normal; display: block; margin-bottom: 3px; }
         .reg-number-box .number { color: #6d28d9; font-size: 24px; letter-spacing: 1px; }
-        
         .counter { text-align: center; font-size: 13px; color: #94a3b8; margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
         .counter span { font-weight: bold; color: #6d28d9; }
-        
         .footer-text { font-size: 11px; color: #94a3b8; text-align: center; margin-top: 8px; }
-        
         .loading-spinner {
             display: inline-block;
             width: 16px;
@@ -264,12 +247,10 @@
             margin-left: 8px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
         .sync-status { font-size: 12px; color: #64748b; text-align: center; margin-top: 5px; }
         .sync-status .success { color: #16a34a; }
         .sync-status .error { color: #ef4444; }
         .sync-status .loading { color: #8b5cf6; }
-        
         @media (max-width: 480px) {
             .container { padding: 18px 14px; }
             .vibrant-icon { width: 70px; height: 70px; }
@@ -281,6 +262,7 @@
             .club-name { font-size: 16px; }
         }
 
+        /* ===== نافذة التصدير ===== */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -379,7 +361,6 @@
         .sport-table .reg-num { font-weight: 700; color: #6d28d9; font-size: 12px; }
         .sport-table .delete-btn { background: #ef4444; color: white; border: none; border-radius: 4px; padding: 2px 8px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .sport-table .delete-btn:hover { background: #dc2626; }
-        
         .category-badge { display: inline-block; padding: 1px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; }
         .category-ecoliers { background: #dbeafe; color: #1e40af; }
         .category-cadets { background: #dcfce7; color: #166534; }
@@ -387,13 +368,15 @@
         .category-u23 { background: #fce4ec; color: #9a1b3a; }
         .category-seniors { background: #e0e7ff; color: #3730a3; }
         .category-veterans { background: #f3e8ff; color: #6b21a8; }
-
         .modal-footer-note { font-size: 11px; color: #64748b; margin-top: 10px; text-align: center; }
         .copy-sport-btn { background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 4px; padding: 2px 12px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .copy-sport-btn:hover { background: rgba(255,255,255,0.35); }
 
-        .player-dashboard { padding: 10px 0; }
-        .player-dashboard .section-title {
+        /* ===== جدول الغيابات ===== */
+        .absence-section {
+            margin: 15px 0;
+        }
+        .absence-section .section-title {
             font-size: 16px;
             font-weight: 700;
             color: #1e293b;
@@ -401,16 +384,6 @@
             border-right: 4px solid #8b5cf6;
             padding-right: 10px;
         }
-        .player-dashboard .info-card {
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        .player-dashboard .info-card .label { font-size: 11px; color: #94a3b8; font-weight: 600; }
-        .player-dashboard .info-card .value { font-size: 15px; font-weight: 700; color: #1e293b; }
-        
         .absence-table-wrapper {
             overflow-x: auto;
             border-radius: 10px;
@@ -432,6 +405,12 @@
             font-size: 10px;
             white-space: nowrap;
         }
+        .absence-table th .month-name {
+            display: block;
+            font-size: 9px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
         .absence-table td {
             padding: 4px 3px;
             text-align: center;
@@ -440,7 +419,6 @@
             font-weight: 600;
         }
         .absence-table tr:nth-child(even) td { background: #f8fafc; }
-        
         .absence-table .status-present { background: #dcfce7 !important; color: #166534; border-bottom: 2px solid #16a34a; }
         .absence-table .status-absent { background: #fee2e2 !important; color: #991b1b; border-bottom: 2px solid #dc2626; }
         .absence-table .status-excused { background: #fef9c3 !important; color: #854d0e; border-bottom: 2px solid #d97706; }
@@ -464,7 +442,7 @@
         .legend .color-box.excused { background: #fef9c3; }
         .legend .color-box.sick { background: #fce4ec; }
         .legend .color-box.empty { background: #f1f5f9; }
-        
+
         .player-dashboard .note-item {
             background: #f1f5f9;
             padding: 10px 14px;
@@ -485,17 +463,6 @@
             color: #8b5cf6;
             font-weight: 600;
         }
-
-        .absence-form { 
-            margin-top: 10px; 
-            padding: 15px; 
-            background: #f8fafc; 
-            border-radius: 10px; 
-            border: 1px solid #e2e8f0; 
-        }
-        .absence-form .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-        .absence-form .row select, .absence-form .row input { flex: 1; min-width: 100px; }
-        .absence-form .row .btn { flex: 0 0 auto; }
         
         .tournament-card {
             background: linear-gradient(135deg, #f8fafc, #f1f5f9);
@@ -515,13 +482,20 @@
         }
         .tournament-card .type.national { background: #dbeafe; color: #1e40af; }
         .tournament-card .type.regional { background: #dcfce7; color: #166534; }
-
         .empty-state { text-align: center; padding: 20px; color: #94a3b8; font-size: 14px; }
         .empty-state .icon { font-size: 40px; display: block; margin-bottom: 8px; }
+        .player-dashboard .info-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .player-dashboard .info-card .label { font-size: 11px; color: #94a3b8; font-weight: 600; }
+        .player-dashboard .info-card .value { font-size: 15px; font-weight: 700; color: #1e293b; }
     </style>
 </head>
 <body>
-
 <div class="wrestling-bg">
     <div class="border-pattern top"></div>
     <div class="border-pattern bottom"></div>
@@ -530,7 +504,6 @@
         <span>⚔️</span><span>🛡️</span><span>⭐</span><span>🤼</span>
     </div>
 </div>
-
 <div class="container" id="appContainer">
     <div class="club-header">
         <div class="club-logo">
@@ -550,13 +523,11 @@
         </div>
         <div class="club-sub2">🏛️ WRESTLING CLUB 🏛️</div>
     </div>
-    
     <div class="divider">
         <span class="line"></span>
         <span class="icon">⚔️</span>
         <span class="line"></span>
     </div>
-    
     <div class="ring-decoration">
         <span class="dot"></span>
         <span class="dot"></span>
@@ -570,18 +541,14 @@
     <!-- ============================================================ -->
     <div id="mainPage">
         <h2 style="text-align:center; color:#1e293b; margin-bottom:15px; font-size:18px;">🏅 منصة المصارعين</h2>
-        
         <button class="btn btn-primary" onclick="showRegisterForm()" style="margin-top:5px;">📝 تسجيل جديد</button>
         <button class="btn btn-success" onclick="showTournaments()">🏆 البطولات</button>
-        
         <div class="counter" style="margin-top:15px;">
             👥 عدد المصارعين: <span id="counter">0</span>
         </div>
-        
         <button class="btn btn-secondary" onclick="showPasswordDialog()" style="margin-top:10px;">📜 تصدير جميع المصارعين</button>
         <button class="btn btn-success" onclick="syncWithCloud()" style="margin-top:5px;">🔄 مزامنة مع السحابة</button>
         <div id="syncStatus" class="sync-status"></div>
-        
         <div class="footer-text" style="margin-top:15px;">سيتم إرسال تأكيد التسجيل إلى بريدك الإلكتروني</div>
     </div>
 
@@ -590,20 +557,15 @@
     <!-- ============================================================ -->
     <div id="registerPage" style="display:none;">
         <h2 style="text-align:center; color:#1e293b; margin-bottom:10px; font-size:18px;">✍️ تسجيل مصارع جديد</h2>
-        
         <form id="registerForm">
             <label><span class="label-icon">👤</span> الاسم الكامل <span class="required">*</span></label>
             <input type="text" id="fullName" placeholder="مثال: أحمد محمد علي" required>
-
             <label><span class="label-icon">📅</span> تاريخ الميلاد <span class="required">*</span></label>
             <input type="date" id="birthDate" required>
-
             <label><span class="label-icon">📞</span> رقم الهاتف <span class="required">*</span></label>
             <input type="tel" id="phone" placeholder="05xxxxxxxx" required pattern="[0-9]{10}">
-
             <label><span class="label-icon">✉️</span> البريد الإلكتروني <span class="required">*</span></label>
             <input type="email" id="email" placeholder="example@email.com" required>
-
             <label><span class="label-icon">🤼</span> نوع المصارعة</label>
             <select id="sport">
                 <optgroup label="🤼 المصارعة المشتركة">
@@ -627,16 +589,13 @@
                     <option value="أخرى">أخرى</option>
                 </optgroup>
             </select>
-
             <div class="checkbox-group">
                 <input type="checkbox" id="parentConsent" required>
                 <label for="parentConsent">أوافق على شروط التسجيل والأحكام</label>
             </div>
-
             <button type="submit" class="btn-submit" id="submitBtn">تسجيل مصارع</button>
             <button type="button" class="btn btn-secondary" onclick="showMainPage()" style="margin-top:5px;">🔙 رجوع</button>
         </form>
-
         <div id="result" class="alert"></div>
         <div id="regNumberBox" class="reg-number-box">
             <span class="label">🤼 رقم المصارع</span>
@@ -652,6 +611,14 @@
         <div id="tournamentsList"></div>
         <button class="btn btn-secondary" onclick="showMainPage()" style="margin-top:10px;">🔙 رجوع</button>
     </div>
+
+    <!-- ============================================================ -->
+    <!-- صفحة اللاعب الشخصية (لعرض الغيابات) -->
+    <!-- ============================================================ -->
+    <div id="playerPage" style="display:none;">
+        <div id="playerDashboard"></div>
+        <button class="btn btn-secondary" onclick="showMainPage()" style="margin-top:10px;">🔙 رجوع</button>
+    </div>
 </div>
 
 <script>
@@ -659,18 +626,16 @@
     // 🔑 إعدادات الكود السري
     // ============================================================
     let SECRET_CODE = "2025";
-    let generatedVerificationCode = null;
     let isCodeVisible = false;
-    
+
     // ============================================================
     // 🌐 رابط Google Apps Script
     // ============================================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbzSeeVeSpy0mLomzqe6004_6DTmWX5CRA7uXa0ezmo_kmex-WnD9TH4tkXHrqmz40Fd2A/exec';
-    
+
     // ============================================================
     // 1. دوال التخزين المحلي
     // ============================================================
-    
     function getAthletes() {
         try {
             const data = localStorage.getItem('athletes');
@@ -679,7 +644,7 @@
             return [];
         }
     }
-    
+
     function saveAthletesLocally(athletes) {
         try {
             localStorage.setItem('athletes', JSON.stringify(athletes));
@@ -689,23 +654,22 @@
             return false;
         }
     }
-    
+
     function addAthlete(athlete) {
         const athletes = getAthletes();
         athletes.push(athlete);
         return saveAthletesLocally(athletes);
     }
-    
+
     function updateCounter() {
         const athletes = getAthletes();
         const counter = document.getElementById('counter');
         if (counter) counter.textContent = athletes.length;
     }
-    
+
     // ============================================================
     // 2. دالة حساب الفئة العمرية حسب UWW
     // ============================================================
-    
     function getUWWAgeCategory(age) {
         if (age >= 14 && age <= 15) {
             return { name: "Ecoliers", arabic: "تلاميذ", css: "category-ecoliers" };
@@ -721,17 +685,15 @@
             return { name: "Seniors", arabic: "كبار", css: "category-seniors" };
         }
     }
-    
+
     // ============================================================
     // 3. المزامنة مع السحابة (إرسال واستقبال)
     // ============================================================
-    
     function syncToCloud(data) {
         if (!navigator.onLine) {
             console.log('⚠️ لا يوجد اتصال بالإنترنت، سيتم الحفظ محلياً فقط');
             return Promise.resolve({ success: false, error: 'offline' });
         }
-        
         return fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -752,13 +714,12 @@
             return { success: false, error: error.message };
         });
     }
-    
+
     function syncFromCloud() {
         if (!navigator.onLine) {
             console.log('⚠️ لا يوجد اتصال بالإنترنت، سيتم استخدام البيانات المحلية');
             return Promise.resolve([]);
         }
-        
         return fetch(API_URL + '?action=get')
         .then(response => response.json())
         .then(result => {
@@ -775,11 +736,10 @@
             return [];
         });
     }
-    
+
     function mergeData(cloudData, localData) {
         const existingEmails = new Set(localData.map(a => a.email));
         let newCount = 0;
-        
         cloudData.forEach(cloudItem => {
             const email = cloudItem['البريد الإلكتروني'] || cloudItem['email'] || '';
             if (email && !existingEmails.has(email)) {
@@ -798,34 +758,29 @@
                     consent: cloudItem['موافقة ولي الأمر'] === 'نعم' || cloudItem['consent'] === true,
                     regNumber: cloudItem['رقم المصارع'] || cloudItem['regNumber'] || `REG-${Date.now()}-${newCount}`,
                     registrationDate: cloudItem['تاريخ التسجيل'] || cloudItem['registrationDate'] || new Date().toISOString(),
-                    absences: {},
-                    notes: []
+                    absences: cloudItem['absences'] || {},
+                    notes: cloudItem['notes'] || []
                 };
-                
                 const age = newAthlete.age;
                 const cat = getUWWAgeCategory(age);
                 newAthlete.category = cat.name;
                 newAthlete.categoryArabic = cat.arabic;
                 newAthlete.categoryCSS = cat.css;
-                
                 localData.push(newAthlete);
                 newCount++;
             }
         });
-        
         return { merged: localData, newCount: newCount };
     }
-    
+
     function syncWithCloud() {
         const statusDiv = document.getElementById('syncStatus');
         statusDiv.className = 'sync-status loading';
         statusDiv.textContent = '⏳ جاري المزامنة مع السحابة...';
-        
         syncFromCloud().then(cloudData => {
             if (cloudData && cloudData.length > 0) {
                 const localData = getAthletes();
                 const result = mergeData(cloudData, localData);
-                
                 if (result.newCount > 0) {
                     saveAthletesLocally(result.merged);
                     statusDiv.className = 'sync-status success';
@@ -844,24 +799,21 @@
             statusDiv.textContent = '❌ خطأ في المزامنة: ' + error.message;
         });
     }
-    
+
     // ============================================================
     // 4. أيام الأسبوع والأشهر
     // ============================================================
-    
     const dayNames = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
     const monthNames = ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
-    
+
     // ============================================================
     // 5. بيانات البطولات
     // ============================================================
-    
     function getTournaments() {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
-        
         return [
             {
                 title: "بطولة الجزائر الوطنية للمصارعة",
@@ -893,42 +845,50 @@
             }
         ];
     }
-    
+
     // ============================================================
     // 6. دوال التنقل بين الصفحات
     // ============================================================
-    
     function showMainPage() {
         document.getElementById('mainPage').style.display = 'block';
         document.getElementById('registerPage').style.display = 'none';
         document.getElementById('tournamentsPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'none';
         updateCounter();
     }
-    
+
     function showRegisterForm() {
         document.getElementById('mainPage').style.display = 'none';
         document.getElementById('registerPage').style.display = 'block';
         document.getElementById('tournamentsPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'none';
         document.getElementById('result').className = 'alert';
         document.getElementById('result').style.display = 'none';
         document.getElementById('regNumberBox').style.display = 'none';
     }
-    
+
     function showTournaments() {
         document.getElementById('mainPage').style.display = 'none';
         document.getElementById('registerPage').style.display = 'none';
         document.getElementById('tournamentsPage').style.display = 'block';
+        document.getElementById('playerPage').style.display = 'none';
         renderTournaments();
     }
-    
+
+    function showPlayerPage(player) {
+        document.getElementById('mainPage').style.display = 'none';
+        document.getElementById('registerPage').style.display = 'none';
+        document.getElementById('tournamentsPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'block';
+        renderPlayerDashboard(player);
+    }
+
     // ============================================================
     // 7. عرض البطولات
     // ============================================================
-    
     function renderTournaments() {
         const container = document.getElementById('tournamentsList');
         const tournaments = getTournaments();
-        
         let html = '';
         tournaments.forEach(t => {
             const typeClass = t.type === 'national' ? 'national' : 'regional';
@@ -942,58 +902,173 @@
                 </div>
             `;
         });
-        
         container.innerHTML = html;
     }
-    
+
     // ============================================================
-    // 8. نموذج التسجيل (مع مزامنة تلقائية)
+    // 8. عرض لوحة اللاعب (جدول الغيابات)
     // ============================================================
-    
+    function renderPlayerDashboard(player) {
+        const dashboard = document.getElementById('playerDashboard');
+        const absences = player.absences || {};
+        const notes = player.notes || [];
+        const now = new Date();
+        const currentYear = now.getFullYear();
+
+        let html = `
+            <div style="text-align:center; margin-bottom:15px;">
+                <span style="font-size:40px;">🤼</span>
+                <h3 style="color:#1e293b; margin:5px 0;">${player.fullName}</h3>
+                <span style="font-size:13px; color:#8b5cf6; font-weight:600;">${player.regNumber}</span>
+                <span style="display:block; font-size:12px; color:#94a3b8;">${player.sport || 'مصارعة'}</span>
+            </div>
+            <div class="info-card">
+                <div class="label">📧 البريد الإلكتروني</div>
+                <div class="value">${player.email}</div>
+            </div>
+            <div class="info-card">
+                <div class="label">📅 تاريخ الميلاد</div>
+                <div class="value">${player.birthDate || 'غير محدد'}</div>
+            </div>
+            <div class="info-card">
+                <div class="label">📞 رقم الهاتف</div>
+                <div class="value">${player.phone || 'غير محدد'}</div>
+            </div>
+            <div class="absence-section">
+                <div class="section-title">📅 جدول الغيابات - السنة ${currentYear}</div>
+                <div class="legend">
+                    <span class="item"><span class="color-box present"></span> حاضر</span>
+                    <span class="item"><span class="color-box absent"></span> غائب</span>
+                    <span class="item"><span class="color-box excused"></span> معذور</span>
+                    <span class="item"><span class="color-box sick"></span> مريض</span>
+                    <span class="item"><span class="color-box empty"></span> لم يُحدد</span>
+                </div>
+                <div class="absence-table-wrapper">
+                    <table class="absence-table">
+                        <thead>
+                            <tr>
+                                <th style="min-width:60px;">الأسبوع</th>
+                                ${dayNames.map(d => `<th>${d}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+        `;
+
+        const startDate = new Date(currentYear, 0, 1);
+        const endDate = new Date(currentYear, 11, 31);
+        let currentDate = new Date(startDate);
+        let weekNumber = 1;
+
+        while (currentDate <= endDate) {
+            const weekStart = new Date(currentDate);
+            html += `<tr><td style="font-weight:700; font-size:10px; color:#64748b;">${weekNumber}</td>`;
+            for (let i = 0; i < 7; i++) {
+                const dayDate = new Date(currentDate);
+                if (dayDate > endDate) {
+                    html += `<td class="status-empty">-</td>`;
+                    continue;
+                }
+                const dateKey = dayDate.toISOString().split('T')[0];
+                const status = absences[dateKey] || 'empty';
+                let statusClass = 'status-empty';
+                let statusText = '●';
+                if (status === 'present') {
+                    statusClass = 'status-present';
+                    statusText = '✓';
+                } else if (status === 'absent') {
+                    statusClass = 'status-absent';
+                    statusText = '✗';
+                } else if (status === 'excused') {
+                    statusClass = 'status-excused';
+                    statusText = '◉';
+                } else if (status === 'sick') {
+                    statusClass = 'status-sick';
+                    statusText = '✦';
+                }
+                const dayNum = dayDate.getDate();
+                html += `<td class="${statusClass}" title="${dayNum} ${monthNames[dayDate.getMonth()]} - ${statusText}">${dayNum}</td>`;
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            html += `</tr>`;
+            weekNumber++;
+            currentDate = new Date(weekStart);
+            currentDate.setDate(currentDate.getDate() + 7);
+        }
+
+        html += `
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-top:15px;">
+                <div class="section-title">📝 ملاحظات المدرب</div>
+        `;
+
+        if (notes.length === 0) {
+            html += `<div class="empty-state"><span class="icon">📝</span>لا توجد ملاحظات</div>`;
+        } else {
+            notes.forEach(note => {
+                html += `
+                    <div class="note-item">
+                        <div class="note-header">
+                            <span class="note-coach">👨‍🏫 المدرب</span>
+                            <span class="note-date">${note.date || ''}</span>
+                        </div>
+                        <div class="note-text">${note.text || ''}</div>
+                    </div>
+                `;
+            });
+        }
+
+        html += `</div>`;
+        dashboard.innerHTML = html;
+    }
+
+    // ============================================================
+    // 9. نموذج التسجيل (مع مزامنة تلقائية)
+    // ============================================================
     const form = document.getElementById('registerForm');
     const submitBtn = document.getElementById('submitBtn');
     const resultDiv = document.getElementById('result');
     const regNumberBox = document.getElementById('regNumberBox');
     const regNumberSpan = document.getElementById('regNumber');
-    
+
     updateCounter();
     console.log('🚀 موقع NBC جاهز!');
     console.log('🌐 رابط السحابة:', API_URL);
-    
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         submitBtn.disabled = true;
         submitBtn.innerHTML = '⏳ جاري التسجيل... <span class="loading-spinner"></span>';
-        
+
         const fullName = document.getElementById('fullName').value.trim();
         const birthDate = document.getElementById('birthDate').value;
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
         const sport = document.getElementById('sport').value;
         const consent = document.getElementById('parentConsent').checked;
-        
+
         resultDiv.className = 'alert';
         resultDiv.style.display = 'none';
         regNumberBox.style.display = 'none';
-        
+
         if (!fullName || !birthDate || !phone || !email) {
             showError('❌ الرجاء ملء جميع الحقول المطلوبة (*)');
             enableButton();
             return;
         }
-        
         if (!/^[0-9]{10}$/.test(phone)) {
             showError('❌ رقم الهاتف يجب أن يكون 10 أرقام');
             enableButton();
             return;
         }
-        
         if (!consent) {
             showError('❌ يجب الموافقة على شروط التسجيل');
             enableButton();
             return;
         }
-        
+
         const birth = new Date(birthDate);
         const today = new Date();
         let age = today.getFullYear() - birth.getFullYear();
@@ -1001,13 +1076,11 @@
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
             age--;
         }
-        
         const category = getUWWAgeCategory(age);
-        
         const year = new Date().getFullYear();
         const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
         const regNumber = `REG-${year}-${random}`;
-        
+
         const athleteData = {
             id: Date.now() + Math.random() * 1000,
             fullName: fullName,
@@ -1026,78 +1099,69 @@
             absences: {},
             notes: []
         };
-        
-        // حفظ محلياً
+
         const success = addAthlete(athleteData);
-        
         if (success) {
             showSuccess(`✅ تم تسجيل المصارع بنجاح!<br>🤼 ${fullName} | 🏷️ ${category.name} (${category.arabic}) | ${sport}`);
             showRegNumber(regNumber);
             form.reset();
-            
-            // ⭐ مزامنة تلقائية مع السحابة (ترسل البيانات فوراً إلى التطبيق)
+            // ⭐ مزامنة تلقائية مع السحابة
             syncToCloud(athleteData).then(result => {
                 if (result.success) {
-                    console.log('✅ تم إرسال البيانات إلى التطبيق بنجاح');
+                    console.log('✅ تم إرسال البيانات إلى السحابة بنجاح');
                 }
             });
-            
             setTimeout(() => {
-                alert(`🎉 مرحباً ${fullName}!\n\n🆔 رقم المصارع: ${regNumber}\n📧 بريدك الإلكتروني: ${email}\n\n📌 سيتم إرسال بياناتك إلى المدرب للموافقة.`);
+                alert(`🎉 مرحباً ${fullName}!\n\n🆔 رقم المصارع: ${regNumber}\n📧 بريدك الإلكتروني: ${email}`);
             }, 500);
         } else {
             showError('❌ فشل حفظ البيانات!');
         }
-        
         enableButton();
     });
-    
+
     function showError(message) {
         resultDiv.className = 'alert alert-error';
         resultDiv.style.display = 'block';
         resultDiv.innerHTML = message;
         regNumberBox.style.display = 'none';
     }
-    
+
     function showSuccess(message) {
         resultDiv.className = 'alert alert-success';
         resultDiv.style.display = 'block';
         resultDiv.innerHTML = message;
     }
-    
+
     function showRegNumber(number) {
         regNumberSpan.textContent = number;
         regNumberBox.style.display = 'block';
     }
-    
+
     function enableButton() {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'تسجيل مصارع';
     }
-    
+
     // ============================================================
-    // 9. نظام الكود السري (للتصدير)
+    // 10. نظام الكود السري (للتصدير)
     // ============================================================
-    
     function toggleAllCodeVisibility() {
         const inputs = document.querySelectorAll('.code-box');
         const toggleBtn = document.getElementById('toggleCodeBtn');
         isCodeVisible = !isCodeVisible;
-        
         inputs.forEach(input => {
             input.type = isCodeVisible ? 'text' : 'password';
         });
-        
         if (toggleBtn) {
             toggleBtn.innerHTML = isCodeVisible ? '🙈 إخفاء الكود' : '👁️ إظهار الكود';
             toggleBtn.classList.toggle('active');
         }
     }
-    
+
     function showPasswordDialog() {
         closePasswordDialog();
         isCodeVisible = false;
-        
         const overlay = document.createElement('div');
         overlay.className = 'modal-overlay';
         overlay.id = 'passwordOverlay';
@@ -1124,7 +1188,7 @@
             </div>
         `;
         document.body.appendChild(overlay);
-        
+
         const inputs = document.querySelectorAll('.code-box');
         inputs.forEach((input, index) => {
             input.addEventListener('input', function(e) {
@@ -1139,7 +1203,6 @@
                 }
                 document.getElementById('passwordError').style.display = 'none';
             });
-            
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Backspace' && this.value.length === 0 && index > 0) {
                     inputs[index - 1].focus();
@@ -1148,7 +1211,6 @@
                     verifyCodeFromBoxes();
                 }
             });
-            
             input.addEventListener('keypress', function(e) {
                 const char = String.fromCharCode(e.which);
                 if (!/^[a-zA-Z0-9]$/.test(char)) {
@@ -1156,12 +1218,11 @@
                 }
             });
         });
-        
         setTimeout(() => {
             if (inputs[0]) inputs[0].focus();
         }, 300);
     }
-    
+
     function getCodeFromBoxes() {
         const inputs = document.querySelectorAll('.code-box');
         let code = '';
@@ -1170,7 +1231,7 @@
         });
         return code;
     }
-    
+
     function clearCodeBoxes() {
         const inputs = document.querySelectorAll('.code-box');
         inputs.forEach(input => {
@@ -1187,11 +1248,10 @@
         }
         if (inputs[0]) inputs[0].focus();
     }
-    
+
     function verifyCodeFromBoxes() {
         const code = getCodeFromBoxes();
         const error = document.getElementById('passwordError');
-        
         if (code === SECRET_CODE) {
             closePasswordDialog();
             exportData();
@@ -1205,31 +1265,27 @@
             setTimeout(clearCodeBoxes, 600);
         }
     }
-    
+
     function closePasswordDialog() {
         const overlay = document.getElementById('passwordOverlay');
         if (overlay) overlay.remove();
     }
-    
+
     // ============================================================
-    // 10. تصدير البيانات
+    // 11. تصدير البيانات
     // ============================================================
-    
     function exportData() {
         const athletes = getAthletes();
-        
         if (athletes.length === 0) {
             alert('⚠️ لا يوجد مصارعين مسجلين حتى الآن!');
             return;
         }
-        
         const groups = {};
         athletes.forEach(a => {
             const sport = a.sport || 'غير محدد';
             if (!groups[sport]) groups[sport] = [];
             groups[sport].push(a);
         });
-        
         const sportEmojis = {
             'مصارعة رومانية-إغريقية': '🏛️',
             'مصارعة حرة': '🤼',
@@ -1247,14 +1303,11 @@
             'رفع أثقال': '🏋️',
             'ملاكمة': '🥊'
         };
-        
         let tablesHTML = '';
         const sportNames = Object.keys(groups).sort();
-        
         sportNames.forEach(sport => {
             const items = groups[sport];
             const emoji = sportEmojis[sport] || '🏅';
-            
             tablesHTML += `
                 <div class="sport-table-wrapper">
                     <div class="sport-table-header">
@@ -1278,14 +1331,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                    `;
-            
+            `;
             items.forEach((a, index) => {
                 const num = index + 1;
                 const categoryDisplay = a.category || 'Seniors';
                 const categoryCSS = a.categoryCSS || 'category-seniors';
                 const athleteId = a.id || Date.now() + index;
-                
                 tablesHTML += `
                     <tr>
                         <td>${num}</td>
@@ -1298,7 +1349,6 @@
                     </tr>
                 `;
             });
-            
             tablesHTML += `
                             </tbody>
                         </table>
@@ -1306,7 +1356,6 @@
                 </div>
             `;
         });
-        
         const modalHTML = `
             <div class="modal-overlay" id="exportModal">
                 <div class="modal-content">
@@ -1325,28 +1374,24 @@
                             <button class="btn-download-json" onclick="downloadAllJSON()">⬇️ تحميل JSON</button>
                             <button class="btn-save-data" onclick="saveDataToFile()">💾 حفظ البيانات</button>
                         </div>
-                        
                         ${tablesHTML}
-                        
                         <div class="modal-footer-note">🤼 يمكنك حذف أي لاعب أو حفظ البيانات</div>
                     </div>
                 </div>
             </div>
         `;
-        
         const modalContainer = document.createElement('div');
         modalContainer.innerHTML = modalHTML;
         document.body.appendChild(modalContainer);
-        
         window._athletesData = athletes;
         window._groupsData = groups;
     }
-    
+
     function closeExportModal() {
         const modal = document.getElementById('exportModal');
         if (modal) modal.remove();
     }
-    
+
     function deleteAthleteFromList(id) {
         if (confirm('⚠️ هل أنت متأكد من حذف هذا المصارع؟')) {
             const athletes = getAthletes();
@@ -1358,7 +1403,7 @@
             updateCounter();
         }
     }
-    
+
     function saveDataToFile() {
         const athletes = getAthletes();
         if (athletes.length === 0) {
@@ -1376,12 +1421,11 @@
         URL.revokeObjectURL(link.href);
         alert('✅ تم حفظ البيانات بنجاح!');
     }
-    
+
     function copySportTable(sportName) {
         const tableId = 'table-' + sportName.replace(/ /g, '_');
         const table = document.getElementById(tableId);
         if (!table) { alert('⚠️ الجدول غير موجود'); return; }
-        
         let text = `${sportName}\n`;
         text += 'رقم المصارع\tالاسم\tالبريد\tالفئة (UWW)\tالعمر\n';
         const rows = table.querySelectorAll('tbody tr');
@@ -1391,7 +1435,7 @@
         });
         copyText(text, `✅ تم نسخ جدول ${sportName} بنجاح!`);
     }
-    
+
     function copyAllTables() {
         const tables = document.querySelectorAll('.sport-table');
         if (tables.length === 0) { alert('⚠️ لا توجد جداول'); return; }
@@ -1408,7 +1452,7 @@
         });
         copyText(allText, '✅ تم نسخ جميع الجداول بنجاح!');
     }
-    
+
     function copyAllJSON() {
         const data = window._athletesData || [];
         if (data.length === 0) { alert('⚠️ لا توجد بيانات'); return; }
@@ -1421,7 +1465,7 @@
         }));
         copyText(JSON.stringify(cleanData, null, 2), '✅ تم نسخ JSON بنجاح!');
     }
-    
+
     function copyText(text, successMsg) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(() => alert(successMsg)).catch(() => fallbackCopy(text));
@@ -1429,7 +1473,7 @@
             fallbackCopy(text);
         }
     }
-    
+
     function fallbackCopy(text) {
         const textarea = document.createElement('textarea');
         textarea.value = text;
@@ -1440,7 +1484,7 @@
         try { document.execCommand('copy'); alert('✅ تم النسخ بنجاح!'); } catch(e) { alert('❌ فشل النسخ'); }
         document.body.removeChild(textarea);
     }
-    
+
     function downloadAllCSV() {
         const groups = window._groupsData || {};
         const sportNames = Object.keys(groups);
@@ -1464,7 +1508,7 @@
         URL.revokeObjectURL(link.href);
         alert('✅ تم تحميل CSV بنجاح!');
     }
-    
+
     function downloadAllJSON() {
         const data = window._athletesData || [];
         if (data.length === 0) { alert('⚠️ لا توجد بيانات'); return; }
@@ -1485,11 +1529,10 @@
         URL.revokeObjectURL(link.href);
         alert('✅ تم تحميل JSON بنجاح!');
     }
-    
+
     // ============================================================
-    // 11. كشف الفئة تلقائياً
+    // 12. كشف الفئة تلقائياً
     // ============================================================
-    
     document.getElementById('birthDate').addEventListener('change', function() {
         const birth = this.value;
         if (!birth) return;
@@ -1503,14 +1546,13 @@
         const category = getUWWAgeCategory(age);
         console.log(`📌 العمر: ${age} سنة → الفئة: ${category.name} (${category.arabic})`);
     });
-    
+
     // تحديث العداد كل 5 ثواني
     setInterval(updateCounter, 5000);
-    
+
     console.log('✅ موقع NBC جاهز!');
     console.log('🌐 رابط السحابة:', API_URL);
-    console.log('🔄 عند التسجيل، ترسل البيانات تلقائياً إلى التطبيق');
+    console.log('🔄 عند التسجيل، ترسل البيانات تلقائياً إلى السحابة والتطبيق');
 </script>
-
 </body>
 </html>
