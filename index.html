@@ -158,7 +158,6 @@
         .ring-decoration { display: flex; justify-content: center; gap: 5px; margin: 3px 0 10px; }
         .ring-decoration .dot { width: 5px; height: 5px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #f59e0b); opacity: 0.5; }
         
-        /* ===== الأزرار ===== */
         .btn {
             width: 100%;
             padding: 12px;
@@ -185,12 +184,24 @@
         .btn-secondary:hover { box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4); }
         .btn::before { margin-left: 8px; }
         
-        .btn-submit { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%); color: white; border: none; border-radius: 10px; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 18px; transition: 0.3s; letter-spacing: 1px; padding: 14px; width: 100%; }
+        .btn-submit {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 18px;
+            transition: 0.3s;
+            letter-spacing: 1px;
+            padding: 14px;
+            width: 100%;
+        }
         .btn-submit::before { content: '🤼 '; }
         .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
-        /* ===== النماذج ===== */
         label { display: block; font-weight: 600; margin-top: 12px; color: #1e293b; font-size: 13px; }
         label .required { color: #ef4444; }
         label .label-icon { margin-left: 6px; }
@@ -216,7 +227,6 @@
         .checkbox-group input { width: 18px; height: 18px; margin: 0; accent-color: #8b5cf6; }
         .checkbox-group label { margin: 0; font-weight: normal; font-size: 13px; color: #475569; }
         
-        /* ===== التنبيهات ===== */
         .alert { padding: 12px 16px; border-radius: 10px; margin-top: 15px; display: none; font-size: 13px; }
         .alert-success { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; border: 1px solid #86efac; display: block; }
         .alert-error { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; border: 1px solid #fca5a5; display: block; }
@@ -271,7 +281,6 @@
             .club-name { font-size: 16px; }
         }
 
-        /* ===== نافذة الكود السري ===== */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -383,7 +392,6 @@
         .copy-sport-btn { background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 4px; padding: 2px 12px; font-size: 11px; cursor: pointer; transition: 0.3s; }
         .copy-sport-btn:hover { background: rgba(255,255,255,0.35); }
 
-        /* ===== نافذة تسجيل الدخول ===== */
         .login-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -433,7 +441,6 @@
         .login-box .close-btn { background: none; border: none; font-size: 14px; color: #94a3b8; cursor: pointer; margin-top: 10px; }
         .login-box .close-btn:hover { color: #475569; }
 
-        /* ===== صفحة اللاعب الشخصية ===== */
         .player-dashboard { padding: 10px 0; }
         .player-dashboard .section-title {
             font-size: 16px;
@@ -453,7 +460,6 @@
         .player-dashboard .info-card .label { font-size: 11px; color: #94a3b8; font-weight: 600; }
         .player-dashboard .info-card .value { font-size: 15px; font-weight: 700; color: #1e293b; }
         
-        /* ===== جدول الغيابات ===== */
         .absence-table-wrapper {
             overflow-x: auto;
             border-radius: 10px;
@@ -744,9 +750,9 @@
     let currentPlayer = null;
     
     // ============================================================
-    // 🌐 رابط Google Apps Script (نقطة الربط المشتركة)
+    // 🌐 رابط Google Apps Script (تم تحديثه بالرابط الجديد)
     // ============================================================
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzAzZliXOYx6ITX9gd9Wxqvmwo4Wj-5mfYujA_kmjjb63ZIcntZ1G0l8G54LGlKQRYV5Q/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzSeeVeSpy0mLomzqe6004_6DTmWX5CRA7uXa0ezmo_kmex-WnD9TH4tkXHrqmz40Fd2A/exec';
     
     // ============================================================
     // 1. دوال التخزين المحلي
@@ -795,7 +801,7 @@
     }
     
     // ============================================================
-    // 2. المزامنة مع السحابة (الربط بين التطبيق والموقع)
+    // 2. دوال المزامنة مع السحابة (الربط بين التطبيق والموقع)
     // ============================================================
     
     function syncToCloud(data) {
@@ -1840,7 +1846,7 @@
     // تحديث العداد كل 5 ثواني
     setInterval(updateCounter, 5000);
     
-    console.log('✅ الموقع جاهز!');
+    console.log('✅ موقع NBC جاهز!');
     console.log('🔑 الكود السري الحالي:', SECRET_CODE);
     console.log('🌐 رابط السحابة:', API_URL);
     console.log('🔄 استخدم زر "مزامنة مع السحابة" لمشاركة البيانات مع التطبيق');
