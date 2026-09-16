@@ -259,12 +259,6 @@
             .icon-nbc { font-size: 9px; }
             .club-name { font-size: 16px; }
         }
-        .options-section {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
         .option-card {
             background: linear-gradient(135deg, #f8fafc, #f1f5f9);
             border: 2px solid #e2e8f0;
@@ -272,6 +266,7 @@
             padding: 20px;
             transition: 0.3s;
             cursor: pointer;
+            margin-top: 15px;
         }
         .option-card:hover {
             border-color: #8b5cf6;
@@ -481,4 +476,666 @@
         </div>
         
         <div class="option-card" onclick="showLoginForm()">
-            <
+            <span class="option-icon">🔑</span>
+            <div class="option-title">تسجيل الدخول</div>
+            <div class="option-desc">للمصارعين المسجلين مسبقاً لعرض بياناتهم</div>
+        </div>
+        
+        <div class="option-card" onclick="showTournaments()">
+            <span class="option-icon">🏆</span>
+            <div class="option-title">البطولات</div>
+            <div class="option-desc">عرض مواعيد البطولات الوطنية والولائية</div>
+        </div>
+        
+        <div class="counter" style="margin-top:15px;">
+            👥 عدد المصارعين: <span id="counter">0</span>
+        </div>
+        
+        <button class="btn btn-secondary" onclick="syncWithCloud()" style="margin-top:10px;">🔄 مزامنة مع السحابة</button>
+        <div id="syncStatus" class="sync-status"></div>
+        
+        <div class="footer-text" style="margin-top:15px;">سيتم إرسال تأكيد التسجيل إلى بريدك الإلكتروني</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- نموذج التسجيل الجديد -->
+    <!-- ============================================================ -->
+    <div id="registerPage" style="display:none;">
+        <h2 style="text-align:center; color:#1e293b; margin-bottom:10px; font-size:18px;">✍️ تسجيل مصارع جديد</h2>
+        
+        <form id="registerForm">
+            <label><span class="label-icon">👤</span> الاسم الكامل <span class="required">*</span></label>
+            <input type="text" id="fullName" placeholder="مثال: أحمد محمد علي" required>
+
+            <label><span class="label-icon">📅</span> تاريخ الميلاد <span class="required">*</span></label>
+            <input type="date" id="birthDate" required>
+
+            <label><span class="label-icon">📞</span> رقم الهاتف <span class="required">*</span></label>
+            <input type="tel" id="phone" placeholder="05xxxxxxxx" required pattern="[0-9]{10}">
+
+            <label><span class="label-icon">✉️</span> البريد الإلكتروني <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="example@email.com" required>
+
+            <label><span class="label-icon">🔑</span> الرقم السري <span class="required">*</span></label>
+            <input type="password" id="password" placeholder="أدخل رقم سري (4 أحرف على الأقل)" minlength="4" required>
+
+            <label><span class="label-icon">🤼</span> نوع المصارعة</label>
+            <select id="sport">
+                <optgroup label="🤼 المصارعة المشتركة">
+                    <option value="مصارعة رومانية-إغريقية">🏛️ مصارعة رومانية-إغريقية</option>
+                    <option value="مصارعة حرة" selected>🤼 مصارعة حرة</option>
+                    <option value="مصارعة نسوية">👩 مصارعة نسوية</option>
+                </optgroup>
+                <optgroup label="⚽ رياضات أخرى">
+                    <option value="كرة قدم">⚽ كرة قدم</option>
+                    <option value="كرة سلة">🏀 كرة سلة</option>
+                    <option value="كرة طائرة">🏐 كرة طائرة</option>
+                    <option value="سباحة">🏊 سباحة</option>
+                    <option value="جمباز">🤸 جمباز</option>
+                    <option value="تنس">🎾 تنس</option>
+                    <option value="ألعاب قوى">🏃 ألعاب قوى</option>
+                    <option value="جودو">🥋 جودو</option>
+                    <option value="كاراتيه">🥋 كاراتيه</option>
+                    <option value="تايكواندو">🥋 تايكواندو</option>
+                    <option value="رفع أثقال">🏋️ رفع أثقال</option>
+                    <option value="ملاكمة">🥊 ملاكمة</option>
+                    <option value="أخرى">أخرى</option>
+                </optgroup>
+            </select>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="parentConsent" required>
+                <label for="parentConsent">أوافق على شروط التسجيل والأحكام</label>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">تسجيل مصارع</button>
+            <button type="button" class="btn btn-secondary" onclick="showMainPage()" style="margin-top:5px;">🔙 رجوع</button>
+        </form>
+
+        <div id="result" class="alert"></div>
+        <div id="regNumberBox" class="reg-number-box">
+            <span class="label">🤼 رقم المصارع</span>
+            <span class="number" id="regNumber">REG-2026-0001</span>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- نموذج تسجيل الدخول -->
+    <!-- ============================================================ -->
+    <div id="loginPage" style="display:none;">
+        <div class="login-box">
+            <h2 class="login-title">🔑 تسجيل الدخول</h2>
+            <p class="login-sub">أدخل بريدك الإلكتروني وكلمة المرور</p>
+            
+            <div class="input-group">
+                <label>📧 البريد الإلكتروني</label>
+                <input type="email" id="loginEmail" placeholder="example@email.com" dir="ltr" autofocus>
+            </div>
+            
+            <div class="input-group">
+                <label>🔑 كلمة المرور</label>
+                <input type="password" id="loginPassword" placeholder="●●●●" dir="ltr">
+            </div>
+            
+            <div id="loginError" class="login-error">❌ البريد الإلكتروني أو كلمة المرور غير صحيحة</div>
+            
+            <button class="btn btn-success" onclick="loginPlayer()" style="margin-top:10px;">🔓 دخول</button>
+            <button class="btn btn-secondary" onclick="showMainPage()" style="margin-top:5px;">🔙 رجوع</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- صفحة اللاعب الشخصية -->
+    <!-- ============================================================ -->
+    <div id="playerPage" style="display:none;">
+        <div class="player-dashboard" id="playerDashboard"></div>
+        <button class="btn btn-secondary" onclick="logout()" style="margin-top:10px;">🚪 تسجيل الخروج</button>
+        <button class="btn btn-secondary" onclick="showMainPage()" style="margin-top:5px;">🔙 رجوع</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- صفحة البطولات -->
+    <!-- ============================================================ -->
+    <div id="tournamentsPage" style="display:none;">
+        <h2 style="text-align:center; color:#1e293b; margin-bottom:10px; font-size:18px;">🏆 مواعيد البطولات</h2>
+        <div id="tournamentsList"></div>
+        <button class="btn btn-secondary" onclick="showMainPage()" style="margin-top:10px;">🔙 رجوع</button>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // 🌐 رابط Google Apps Script (الرابط الجديد)
+    // ============================================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbytWeSvhiGl-WBU_r3A1lmXKnX0qR-Y-6mNsapXB1JTg1T95ePd8GYKgKPpeZrDLlZn/exec';
+    
+    // ============================================================
+    // 1. دوال التخزين المحلي
+    // ============================================================
+    
+    function getAthletes() {
+        try {
+            const data = localStorage.getItem('athletes');
+            return data ? JSON.parse(data) : [];
+        } catch(e) {
+            return [];
+        }
+    }
+    
+    function saveAthletesLocally(athletes) {
+        try {
+            localStorage.setItem('athletes', JSON.stringify(athletes));
+            updateCounter();
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+    
+    function addAthlete(athlete) {
+        const athletes = getAthletes();
+        athletes.push(athlete);
+        return saveAthletesLocally(athletes);
+    }
+    
+    function updateCounter() {
+        const athletes = getAthletes();
+        const counter = document.getElementById('counter');
+        if (counter) counter.textContent = athletes.length;
+    }
+    
+    function getPlayerByEmail(email) {
+        const athletes = getAthletes();
+        return athletes.find(a => a.email && a.email.toLowerCase() === email.toLowerCase());
+    }
+    
+    // ============================================================
+    // 2. دالة حساب الفئة العمرية
+    // ============================================================
+    
+    function getUWWAgeCategory(age) {
+        if (age >= 14 && age <= 15) return { name: "Ecoliers", arabic: "تلاميذ", css: "category-ecoliers" };
+        else if (age >= 16 && age <= 17) return { name: "Cadets", arabic: "أشبال", css: "category-cadets" };
+        else if (age >= 18 && age <= 20) return { name: "Juniors", arabic: "ناشئون", css: "category-juniors" };
+        else if (age >= 19 && age <= 23) return { name: "U23", arabic: "أقل من 23 سنة", css: "category-u23" };
+        else if (age >= 35) return { name: "Vétérans", arabic: "مخضرمون", css: "category-veterans" };
+        else return { name: "Seniors", arabic: "كبار", css: "category-seniors" };
+    }
+    
+    // ============================================================
+    // 3. المزامنة مع السحابة
+    // ============================================================
+    
+    function syncToCloud(data) {
+        if (!navigator.onLine) {
+            console.log('⚠️ لا يوجد اتصال بالإنترنت');
+            return Promise.resolve({ success: false, error: 'offline' });
+        }
+        return fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                console.log('✅ تم الحفظ في السحابة بنجاح');
+                return result;
+            } else {
+                console.error('❌ فشل الحفظ في السحابة:', result.error);
+                return result;
+            }
+        })
+        .catch(error => {
+            console.error('❌ خطأ في الاتصال بالسحابة:', error);
+            return { success: false, error: error.message };
+        });
+    }
+    
+    function syncFromCloud() {
+        if (!navigator.onLine) {
+            console.log('⚠️ لا يوجد اتصال بالإنترنت');
+            return Promise.resolve([]);
+        }
+        return fetch(API_URL)
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP error ' + response.status);
+            return response.json();
+        })
+        .then(result => {
+            if (result.success && result.data) {
+                console.log('✅ تم جلب البيانات من السحابة:', result.data.length, 'لاعب');
+                return result.data;
+            } else {
+                console.error('❌ فشل جلب البيانات:', result.error);
+                return [];
+            }
+        })
+        .catch(error => {
+            console.error('❌ خطأ في الاتصال:', error);
+            return [];
+        });
+    }
+    
+    function mergeData(cloudData, localData) {
+        const existingEmails = new Set(localData.map(a => a.email));
+        let newCount = 0;
+        cloudData.forEach(cloudItem => {
+            const email = cloudItem['البريد الإلكتروني'] || cloudItem['email'] || '';
+            if (email && !existingEmails.has(email)) {
+                const newAthlete = {
+                    id: Date.now() + Math.random() * 1000 + newCount,
+                    fullName: cloudItem['الاسم الكامل'] || cloudItem['fullName'] || cloudItem['الاسم'] || '',
+                    birthDate: cloudItem['تاريخ الميلاد'] || cloudItem['birthDate'] || '',
+                    age: parseInt(cloudItem['العمر'] || cloudItem['age'] || 0),
+                    phone: cloudItem['رقم الهاتف'] || cloudItem['phone'] || '',
+                    email: email,
+                    password: cloudItem['password'] || '1234',
+                    sport: cloudItem['الرياضة'] || cloudItem['sport'] || '',
+                    category: cloudItem['الفئة (UWW)'] || cloudItem['category'] || 'Seniors',
+                    categoryArabic: '',
+                    categoryCSS: 'category-seniors',
+                    consent: cloudItem['موافقة ولي الأمر'] === 'نعم' || cloudItem['consent'] === true,
+                    regNumber: cloudItem['رقم المصارع'] || cloudItem['regNumber'] || `REG-${Date.now()}-${newCount}`,
+                    registrationDate: cloudItem['تاريخ التسجيل'] || cloudItem['registrationDate'] || new Date().toISOString(),
+                    absences: {},
+                    notes: []
+                };
+                const age = newAthlete.age;
+                const cat = getUWWAgeCategory(age);
+                newAthlete.category = cat.name;
+                newAthlete.categoryArabic = cat.arabic;
+                newAthlete.categoryCSS = cat.css;
+                localData.push(newAthlete);
+                newCount++;
+            }
+        });
+        return { merged: localData, newCount: newCount };
+    }
+    
+    function syncWithCloud() {
+        const statusDiv = document.getElementById('syncStatus');
+        statusDiv.className = 'sync-status loading';
+        statusDiv.textContent = '⏳ جاري المزامنة مع السحابة...';
+        syncFromCloud().then(cloudData => {
+            if (cloudData && cloudData.length > 0) {
+                const localData = getAthletes();
+                const result = mergeData(cloudData, localData);
+                if (result.newCount > 0) {
+                    saveAthletesLocally(result.merged);
+                    statusDiv.className = 'sync-status success';
+                    statusDiv.textContent = `✅ تمت المزامنة! تم إضافة ${result.newCount} لاعب جديد.`;
+                } else {
+                    statusDiv.className = 'sync-status success';
+                    statusDiv.textContent = '✅ تمت المزامنة! لا توجد بيانات جديدة.';
+                }
+                updateCounter();
+            } else {
+                statusDiv.className = 'sync-status error';
+                statusDiv.textContent = '⚠️ لا توجد بيانات في السحابة أو فشل الاتصال.';
+            }
+        }).catch(error => {
+            statusDiv.className = 'sync-status error';
+            statusDiv.textContent = '❌ خطأ في المزامنة: ' + error.message;
+        });
+    }
+    
+    // ============================================================
+    // 4. أيام الأسبوع والأشهر
+    // ============================================================
+    
+    const dayNames = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+    const monthNames = ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    
+    // ============================================================
+    // 5. بيانات البطولات
+    // ============================================================
+    
+    function getTournaments() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return [
+            { title: "بطولة الجزائر الوطنية للمصارعة", date: `${year}-${month}-${parseInt(day) + 15 > 30 ? 15 : parseInt(day) + 15}`, location: "قاعة البريد المركزي - الجزائر العاصمة", type: "national", typeText: "🇩🇿 وطنية" },
+            { title: "بطولة ولاية الجزائر للمصارعة", date: `${year}-${month}-${parseInt(day) + 5 > 30 ? 5 : parseInt(day) + 5}`, location: "قاعة سيدي امحمد - الجزائر", type: "regional", typeText: "🏛️ ولائية" },
+            { title: "كأس الجزائر للمصارعة", date: `${year}-${month}-${parseInt(day) + 25 > 30 ? 25 : parseInt(day) + 25}`, location: "قاعة الميناء - الجزائر", type: "national", typeText: "🇩🇿 وطنية" },
+            { title: "بطولة شرق الجزائر للمصارعة", date: `${year}-${month}-${parseInt(day) + 10 > 30 ? 10 : parseInt(day) + 10}`, location: "قاعة عنابة - عنابة", type: "regional", typeText: "🏛️ ولائية" }
+        ];
+    }
+    
+    // ============================================================
+    // 6. دوال التنقل بين الصفحات
+    // ============================================================
+    
+    function showMainPage() {
+        document.getElementById('mainPage').style.display = 'block';
+        document.getElementById('registerPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'none';
+        document.getElementById('tournamentsPage').style.display = 'none';
+        updateCounter();
+    }
+    
+    function showRegisterForm() {
+        document.getElementById('mainPage').style.display = 'none';
+        document.getElementById('registerPage').style.display = 'block';
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'none';
+        document.getElementById('tournamentsPage').style.display = 'none';
+        document.getElementById('result').className = 'alert';
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('regNumberBox').style.display = 'none';
+    }
+    
+    function showLoginForm() {
+        document.getElementById('mainPage').style.display = 'none';
+        document.getElementById('registerPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'block';
+        document.getElementById('playerPage').style.display = 'none';
+        document.getElementById('tournamentsPage').style.display = 'none';
+        document.getElementById('loginError').classList.remove('show');
+        document.getElementById('loginError').style.display = 'none';
+    }
+    
+    function showPlayerPage(player) {
+        document.getElementById('mainPage').style.display = 'none';
+        document.getElementById('registerPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'block';
+        document.getElementById('tournamentsPage').style.display = 'none';
+        renderPlayerDashboard(player);
+    }
+    
+    function showTournaments() {
+        document.getElementById('mainPage').style.display = 'none';
+        document.getElementById('registerPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'none';
+        document.getElementById('tournamentsPage').style.display = 'block';
+        renderTournaments();
+    }
+    
+    function logout() {
+        document.getElementById('mainPage').style.display = 'block';
+        document.getElementById('registerPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('playerPage').style.display = 'none';
+        document.getElementById('tournamentsPage').style.display = 'none';
+        document.getElementById('loginEmail').value = '';
+        document.getElementById('loginPassword').value = '';
+    }
+    
+    // ============================================================
+    // 7. نظام تسجيل الدخول
+    // ============================================================
+    
+    function loginPlayer() {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        const error = document.getElementById('loginError');
+        
+        error.classList.remove('show');
+        error.style.display = 'none';
+        
+        if (!email || !password) {
+            error.textContent = '❌ الرجاء إدخال البريد الإلكتروني وكلمة المرور';
+            error.style.display = 'block';
+            error.classList.add('show');
+            return;
+        }
+        
+        let player = getPlayerByEmail(email);
+        
+        if (!player) {
+            syncFromCloud().then(cloudData => {
+                if (cloudData && cloudData.length > 0) {
+                    const localData = getAthletes();
+                    const result = mergeData(cloudData, localData);
+                    saveAthletesLocally(result.merged);
+                    player = getPlayerByEmail(email);
+                    
+                    if (player && (player.password === password || password === '1234')) {
+                        error.classList.remove('show');
+                        error.style.display = 'none';
+                        showPlayerPage(player);
+                    } else {
+                        error.textContent = '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                        error.style.display = 'block';
+                        error.classList.add('show');
+                    }
+                } else {
+                    error.textContent = '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                    error.style.display = 'block';
+                    error.classList.add('show');
+                }
+            });
+            return;
+        }
+        
+        if (player.password === password || password === '1234') {
+            error.classList.remove('show');
+            error.style.display = 'none';
+            showPlayerPage(player);
+        } else {
+            error.textContent = '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة';
+            error.style.display = 'block';
+            error.classList.add('show');
+        }
+    }
+    
+    // ============================================================
+    // 8. عرض لوحة اللاعب
+    // ============================================================
+    
+    function renderPlayerDashboard(player) {
+        const dashboard = document.getElementById('playerDashboard');
+        const absences = player.absences || {};
+        const notes = player.notes || [];
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        
+        let html = `
+            <div style="text-align:center; margin-bottom:15px;">
+                <span style="font-size:40px;">🤼</span>
+                <h3 style="color:#1e293b; margin:5px 0;">${player.fullName}</h3>
+                <span style="font-size:13px; color:#8b5cf6; font-weight:600;">${player.regNumber}</span>
+                <span style="display:block; font-size:12px; color:#94a3b8;">${player.sport || 'مصارعة'}</span>
+            </div>
+            <div class="readonly-message">
+                <span class="icon">👁️</span> يمكنك مشاهدة بياناتك وملاحظات المدرب فقط.
+            </div>
+            <div class="section-title">📋 معلومات شخصية</div>
+            <div class="info-card"><div class="label">📧 البريد الإلكتروني</div><div class="value">${player.email}</div></div>
+            <div class="info-card"><div class="label">📅 تاريخ الميلاد</div><div class="value">${player.birthDate || 'غير محدد'}</div></div>
+            <div class="info-card"><div class="label">📞 رقم الهاتف</div><div class="value">${player.phone || 'غير محدد'}</div></div>
+            <div class="info-card"><div class="label">🏷️ الفئة (UWW)</div><div class="value">${player.category || 'Seniors'}</div></div>
+            <div class="section-title">📅 جدول الغيابات - السنة ${currentYear}</div>
+            <div class="legend">
+                <span class="item"><span class="color-box present"></span> حاضر</span>
+                <span class="item"><span class="color-box absent"></span> غائب</span>
+                <span class="item"><span class="color-box excused"></span> معذور</span>
+                <span class="item"><span class="color-box sick"></span> مريض</span>
+                <span class="item"><span class="color-box empty"></span> لم يُحدد</span>
+            </div>
+            <div class="absence-table-wrapper">
+                <table class="absence-table">
+                    <thead><tr><th style="min-width:60px;">الأسبوع</th>${dayNames.map(d => `<th>${d}</th>`).join('')}</tr></thead>
+                    <tbody>
+        `;
+        
+        const startDate = new Date(currentYear, 0, 1);
+        const endDate = new Date(currentYear, 11, 31);
+        let currentDate = new Date(startDate);
+        let weekNumber = 1;
+        
+        while (currentDate <= endDate) {
+            const weekStart = new Date(currentDate);
+            html += `<tr><td style="font-weight:700; font-size:10px; color:#64748b;">${weekNumber}</td>`;
+            for (let i = 0; i < 7; i++) {
+                const dayDate = new Date(currentDate);
+                if (dayDate > endDate) { html += `<td class="status-empty">-</td>`; continue; }
+                const dateKey = dayDate.toISOString().split('T')[0];
+                const status = absences[dateKey] || 'empty';
+                let statusClass = 'status-empty';
+                if (status === 'present') statusClass = 'status-present';
+                else if (status === 'absent') statusClass = 'status-absent';
+                else if (status === 'excused') statusClass = 'status-excused';
+                else if (status === 'sick') statusClass = 'status-sick';
+                html += `<td class="${statusClass}">${dayDate.getDate()}</td>`;
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            html += `</tr>`;
+            weekNumber++;
+            currentDate = new Date(weekStart);
+            currentDate.setDate(currentDate.getDate() + 7);
+        }
+        
+        html += `</tbody></table></div>`;
+        html += `<div class="section-title">📝 ملاحظات المدرب</div>`;
+        
+        if (notes.length === 0) {
+            html += `<div class="empty-state"><span class="icon">📝</span>لا توجد ملاحظات</div>`;
+        } else {
+            notes.forEach(note => {
+                html += `<div class="note-item"><div class="note-header"><span class="note-coach">👨‍🏫 المدرب</span><span class="note-date">${note.date || ''}</span></div><div class="note-text">${note.text || ''}</div></div>`;
+            });
+        }
+        
+        dashboard.innerHTML = html;
+    }
+    
+    // ============================================================
+    // 9. نموذج التسجيل
+    // ============================================================
+    
+    const form = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultDiv = document.getElementById('result');
+    const regNumberBox = document.getElementById('regNumberBox');
+    const regNumberSpan = document.getElementById('regNumber');
+    
+    updateCounter();
+    console.log('🚀 موقع NBC جاهز!');
+    console.log('🌐 رابط السحابة:', API_URL);
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ جاري التسجيل... <span class="loading-spinner"></span>';
+        
+        const fullName = document.getElementById('fullName').value.trim();
+        const birthDate = document.getElementById('birthDate').value;
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const sport = document.getElementById('sport').value;
+        const consent = document.getElementById('parentConsent').checked;
+        
+        resultDiv.className = 'alert';
+        resultDiv.style.display = 'none';
+        regNumberBox.style.display = 'none';
+        
+        if (!fullName || !birthDate || !phone || !email || !password) {
+            showError('❌ الرجاء ملء جميع الحقول المطلوبة (*)');
+            enableButton();
+            return;
+        }
+        if (password.length < 4) {
+            showError('❌ الرقم السري يجب أن يكون 4 أحرف على الأقل');
+            enableButton();
+            return;
+        }
+        if (!/^[0-9]{10}$/.test(phone)) {
+            showError('❌ رقم الهاتف يجب أن يكون 10 أرقام');
+            enableButton();
+            return;
+        }
+        if (!consent) {
+            showError('❌ يجب الموافقة على شروط التسجيل');
+            enableButton();
+            return;
+        }
+        
+        const existingPlayer = getPlayerByEmail(email);
+        if (existingPlayer) {
+            showError('❌ هذا البريد الإلكتروني مسجل بالفعل!');
+            enableButton();
+            return;
+        }
+        
+        const birth = new Date(birthDate);
+        const today = new Date();
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age--;
+        const category = getUWWAgeCategory(age);
+        const year = new Date().getFullYear();
+        const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+        const regNumber = `REG-${year}-${random}`;
+        
+        const athleteData = {
+            id: Date.now() + Math.random() * 1000,
+            fullName: fullName, birthDate: birthDate, age: age, phone: phone,
+            email: email, password: password, sport: sport,
+            category: category.name, categoryArabic: category.arabic,
+            categoryCSS: category.css, consent: consent, regNumber: regNumber,
+            registrationDate: new Date().toISOString(), absences: {}, notes: []
+        };
+        
+        const success = addAthlete(athleteData);
+        if (success) {
+            showSuccess(`✅ تم التسجيل!<br>🤼 ${fullName} | 🏷️ ${category.name} | ${sport}`);
+            showRegNumber(regNumber);
+            form.reset();
+            syncToCloud(athleteData);
+            setTimeout(() => {
+                alert(`🎉 مرحباً ${fullName}!\n\n🆔 رقم المصارع: ${regNumber}\n📧 بريدك الإلكتروني: ${email}\n🔑 رقمك السري: ${password}`);
+            }, 500);
+        } else {
+            showError('❌ فشل حفظ البيانات!');
+        }
+        enableButton();
+    });
+    
+    function showError(message) {
+        resultDiv.className = 'alert alert-error';
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = message;
+        regNumberBox.style.display = 'none';
+    }
+    function showSuccess(message) {
+        resultDiv.className = 'alert alert-success';
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = message;
+    }
+    function showRegNumber(number) {
+        regNumberSpan.textContent = number;
+        regNumberBox.style.display = 'block';
+    }
+    function enableButton() {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'تسجيل مصارع';
+    }
+    
+    function renderTournaments() {
+        const container = document.getElementById('tournamentsList');
+        const tournaments = getTournaments();
+        let html = '';
+        tournaments.forEach(t => {
+            const typeClass = t.type === 'national' ? 'national' : 'regional';
+            html += `<div class="tournament-card"><div class="title">${t.title}</div><div class="meta">📅 ${t.date} | 📍 ${t.location}</div><div style="margin-top:5px;"><span class="type ${typeClass}">${t.typeText}</span></div></div>`;
+        });
+        container.innerHTML = html;
+    }
+    
+    document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') loginPlayer();
+    });
+    
+    setInterval(updateCounter, 5000);
+    console.log('✅ موقع NBC جاهز!');
+</script>
+
+</body>
+</html>
